@@ -3,10 +3,750 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoChinaDZ V2</title>
+
+  <title>AutoChinaDZ | Véhicules & Importation automobile</title>
+  <meta name="description" content="AutoChinaDZ - Véhicules, importation automobile et solutions automobiles depuis la Chine.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f6f8;
+      color: #171717;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #080808;
+      border-bottom: 1px solid #292929;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      height: 72px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: white;
+    }
+
+    .logo span {
+      color: #e21d2f;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #ddd;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-button {
+      background: #e21d2f;
+      color: white;
+      padding: 11px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 530px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.94), rgba(0,0,0,.68), rgba(0,0,0,.25)),
+        radial-gradient(circle at 80% 50%, #383838, #090909 60%);
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      width: min(1200px, 100%);
+      margin: auto;
+      padding: 70px 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(226,29,47,.15);
+      border: 1px solid #e21d2f;
+      color: #ff5968;
+      padding: 7px 13px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.05;
+      margin-bottom: 22px;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: #e21d2f;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #c9c9c9;
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 23px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: #e21d2f;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #c91829;
+    }
+
+    .btn-secondary {
+      border-color: #555;
+      color: white;
+      background: rgba(255,255,255,.05);
+    }
+
+    /* SEARCH */
+    .search-section {
+      position: relative;
+      margin-top: -45px;
+      z-index: 10;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.15);
+    }
+
+    .search-box h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 10px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 46px;
+      padding: 0 13px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      background: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #e21d2f;
+    }
+
+    .search-button {
+      height: 46px;
+      padding: 0 22px;
+      border: none;
+      border-radius: 7px;
+      background: #111;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 80px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #666;
+    }
+
+    /* VEHICLES */
+    .vehicles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .vehicle-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #e5e5e5;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .vehicle-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.1);
+    }
+
+    .vehicle-image {
+      height: 220px;
+      background:
+        linear-gradient(135deg, #272727, #777);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 50px;
+    }
+
+    .vehicle-info {
+      padding: 20px;
+    }
+
+    .vehicle-info h3 {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .vehicle-info p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .vehicle-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price {
+      color: #e21d2f;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .details {
+      background: #111;
+      color: white;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* SERVICES */
+    .services {
+      background: #0c0c0c;
+      color: white;
+    }
+
+    .services .section-title p {
+      color: #aaa;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service {
+      border: 1px solid #292929;
+      border-radius: 12px;
+      padding: 30px;
+      background: #151515;
+    }
+
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+
+    .service h3 {
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* WHY US */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .why-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid #e5e5e5;
+      text-align: center;
+    }
+
+    .why-card strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .why-card p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* CONTACT */
+    .contact {
+      background: #e21d2f;
+      color: white;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .contact p {
+      margin-bottom: 25px;
+      color: #ffe5e8;
+    }
+
+    .whatsapp {
+      display: inline-block;
+      background: white;
+      color: #111;
+      padding: 14px 25px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #080808;
+      color: #aaa;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .filters {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .search-button {
+        width: 100%;
+      }
+
+      .vehicles,
+      .service-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 500px;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .filters,
+      .vehicles,
+      .service-grid,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 60px 16px;
+      }
+
+      .search-section {
+        padding: 0 12px;
+      }
+
+      .search-box {
+        padding: 18px;
+      }
+
+      .section-title h2 {
+        font-size: 30px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>🚗 Bienvenue sur AutoChinaDZ V2</h1>
-  <p>Le nouveau site est en cours de construction.</p>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="#" class="logo">Auto<span>China</span>DZ</a>
+
+      <div class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#vehicules">Véhicules</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <a href="#contact" class="nav-button">Nous contacter</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main id="accueil">
+    <section class="hero">
+      <div class="hero-content">
+
+        <div class="badge">🇩🇿 AUTOCHINADZ</div>
+
+        <h1>
+          Votre voiture.<br>
+          <span>Notre expertise.</span>
+        </h1>
+
+        <p>
+          Découvrez les véhicules disponibles et nos solutions
+          d'importation automobile depuis la Chine vers l'Algérie.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#vehicules" class="btn btn-primary">
+            Découvrir les véhicules
+          </a>
+
+          <a href="#services" class="btn btn-secondary">
+            Nos services
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEARCH -->
+    <div class="search-section">
+      <div class="search-box">
+
+        <h2>🔎 Rechercher un véhicule</h2>
+
+        <div class="filters">
+          <input
+            type="text"
+            id="search"
+            placeholder="Marque ou modèle..."
+          >
+
+          <select id="brand">
+            <option value="">Toutes les marques</option>
+            <option>Geely</option>
+            <option>Kaiyi</option>
+            <option>MG</option>
+            <option>Chery</option>
+            <option>BYD</option>
+          </select>
+
+          <select>
+            <option value="">Toutes les années</option>
+            <option>2026</option>
+            <option>2025</option>
+            <option>2024</option>
+          </select>
+
+          <select>
+            <option value="">Tous les types</option>
+            <option>Berline</option>
+            <option>SUV</option>
+            <option>Citadine</option>
+            <option>Utilitaire</option>
+          </select>
+
+          <button class="search-button" onclick="searchVehicles()">
+            Rechercher
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VEHICLES -->
+    <section id="vehicules">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Véhicules disponibles</h2>
+          <p>
+            Retrouvez prochainement notre catalogue complet.
+          </p>
+        </div>
+
+        <div class="vehicles">
+
+          <article class="vehicle-card">
+            <div class="vehicle-image">🚗</div>
+            <div class="vehicle-info">
+              <h3>Geely Coolray</h3>
+              <p>2026 · SUV · Essence · Automatique</p>
+
+              <div class="vehicle-bottom">
+                <span class="price">Sur demande</span>
+                <a href="#contact" class="details">Détails</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="vehicle-card">
+            <div class="vehicle-image">🚘</div>
+            <div class="vehicle-info">
+              <h3>Kaiyi Xuandu</h3>
+              <p>2024 · Berline · 1.5T · Manuelle</p>
+
+              <div class="vehicle-bottom">
+                <span class="price">Sur demande</span>
+                <a href="#contact" class="details">Détails</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="vehicle-card">
+            <div class="vehicle-image">🚙</div>
+            <div class="vehicle-info">
+              <h3>MG5</h3>
+              <p>Berline · Essence · Disponible</p>
+
+              <div class="vehicle-bottom">
+                <span class="price">Sur demande</span>
+                <a href="#contact" class="details">Détails</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Nos services</h2>
+          <p>
+            Une solution complète pour votre projet automobile.
+          </p>
+        </div>
+
+        <div class="service-grid">
+
+          <div class="service">
+            <div class="service-icon">🚗</div>
+            <h3>Vente de véhicules</h3>
+            <p>
+              Découvrez notre sélection de véhicules et demandez
+              les informations disponibles sur chaque modèle.
+            </p>
+          </div>
+
+          <div class="service">
+            <div class="service-icon">🇨🇳</div>
+            <h3>Importation depuis la Chine</h3>
+            <p>
+              Accompagnement dans votre projet d'importation
+              automobile depuis la Chine vers l'Algérie.
+            </p>
+          </div>
+
+          <div class="service">
+            <div class="service-icon">🚢</div>
+            <h3>Transport & logistique</h3>
+            <p>
+              Solutions de transport et de logistique pour
+              faciliter l'arrivée de votre véhicule.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Pourquoi AutoChinaDZ ?</h2>
+          <p>Une approche simple et transparente.</p>
+        </div>
+
+        <div class="why-grid">
+
+          <div class="why-card">
+            <strong>🇨🇳</strong>
+            <p>Spécialiste des véhicules chinois</p>
+          </div>
+
+          <div class="why-card">
+            <strong>🔎</strong>
+            <p>Informations détaillées sur les véhicules</p>
+          </div>
+
+          <div class="why-card">
+            <strong>🤝</strong>
+            <p>Accompagnement personnalisé</p>
+          </div>
+
+          <div class="why-card">
+            <strong>🇩🇿</strong>
+            <p>Service orienté vers le marché algérien</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <h2>Vous cherchez un véhicule ?</h2>
+
+        <p>
+          Contactez AutoChinaDZ pour connaître les disponibilités
+          et obtenir plus d'informations.
+        </p>
+
+        <a
+          class="whatsapp"
+          href="https://wa.me/"
+          target="_blank"
+          rel="noopener"
+        >
+          💬 Contacter sur WhatsApp
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      © 2026 <strong>AutoChinaDZ</strong> —
+      Véhicules & solutions automobiles depuis la Chine.
+    </p>
+  </footer>
+
+  <script>
+    function searchVehicles() {
+      const search = document.getElementById("search").value.trim();
+
+      if (search) {
+        alert("Recherche : " + search);
+      } else {
+        document.getElementById("vehicules").scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    }
+  </script>
+
 </body>
 </html>
