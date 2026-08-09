@@ -571,8 +571,9 @@
         placeholder="Marque ou modèle..."
       >
 
-<select id="brand">
-  <option value="">Toutes les marques</option>
+<select id="model">
+    <option value="">Tous les modèles</option>
+</select>
   <option>Audi</option>
   <option>Skoda</option>
   <option>SEAT</option>
@@ -608,13 +609,16 @@
   <option>Avatr</option>
 </select>
 
-      <select>
-        <option value="">Toutes les années</option>
-        <option>2026</option>
-        <option>2025</option>
-        <option>2024</option>
-      </select>
+<select id="model">
+    <option value="">Tous les modèles</option>
+</select>
 
+<select>
+    <option value="">Toutes les années</option>
+      <option>2026</option>
+      <option>2025</option>
+      <option>2024</option>
+</select>
       <select>
         <option value="">Tous les types</option>
         <option>Berline</option>
@@ -845,10 +849,11 @@ async function loadVehicles() {
 
     vehicles = await response.json();
 
-    populateBrands();
-    populateYears();
-    populateTypes();
-    displayVehicles();
+populateBrands();
+populateYears();
+populateTypes();
+updateModels();
+displayVehicles();
 
   } catch (error) {
     console.error(error);
@@ -882,8 +887,7 @@ function populateBrands() {
 
 /* Années */
 function populateYears() {
-  const selects = document.querySelectorAll(".filters select");
-  const yearSelect = selects[1];
+  const yearSelect = document.getElementById("year");
 
   if (!yearSelect) return;
 
@@ -903,11 +907,9 @@ function populateYears() {
     yearSelect.appendChild(option);
   });
 }
-
 /* Types */
 function populateTypes() {
-  const selects = document.querySelectorAll(".filters select");
-  const typeSelect = selects[2];
+  const typeSelect = document.getElementById("type");
 
   if (!typeSelect) return;
 
@@ -942,10 +944,14 @@ function displayVehicles() {
   const brand =
     document.getElementById("brand")?.value || "";
 
-  const selects = document.querySelectorAll(".filters select");
+  const model =
+    document.getElementById("model")?.value || "";
 
-  const year = selects[1]?.value || "";
-  const type = selects[2]?.value || "";
+  const year =
+    document.getElementById("year")?.value || "";
+
+  const type =
+    document.getElementById("type")?.value || "";
 
   const filtered = vehicles.filter(vehicle => {
 
@@ -956,14 +962,14 @@ function displayVehicles() {
     return (
       (!search || name.includes(search)) &&
       (!brand || vehicle.brand_fr === brand) &&
+      (!model || vehicle.model_fr === model) &&
       (!year || String(vehicle.year) === String(year)) &&
       (!type || vehicle.type === type)
     );
   });
 
   if (filtered.length === 0) {
-    container.innerHTML =
-      "<p>Aucun véhicule trouvé.</p>";
+    container.innerHTML = "Aucun véhicule trouvé.";
     return;
   }
 
@@ -1017,17 +1023,46 @@ function displayVehicles() {
   }).join("");
 }
 
-/* Recherche */
-function searchVehicles() {
-  displayVehicles();
 
-  document.getElementById("vehicules")
-    ?.scrollIntoView({
-      behavior: "smooth"
-    });
+/* Mise à jour de la liste des modèles selon la marque */
+
+function updateModels() {
+
+  const brand =
+    document.getElementById("brand")?.value || "";
+
+  const modelSelect =
+    document.getElementById("model");
+
+  if (!modelSelect || !Array.isArray(vehicles)) return;
+
+  const models = [...new Set(
+    vehicles
+      .filter(vehicle =>
+        !brand || vehicle.brand_fr === brand
+      )
+      .map(vehicle => vehicle.model_fr)
+      .filter(Boolean)
+  )].sort();
+
+  modelSelect.innerHTML =
+    '<option value="">Tous les modèles</option>';
+
+  models.forEach(model => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = model;
+    option.textContent = model;
+
+    modelSelect.appendChild(option);
+  });
 }
 
+
 /* Sécurité d'affichage */
+
 function escapeHTML(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -1037,19 +1072,32 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
+
 /* Actualisation automatique des filtres */
+
 document.getElementById("search")
   ?.addEventListener("input", displayVehicles);
 
 document.getElementById("brand")
-  ?.addEventListener("change", displayVehicles);
+  ?.addEventListener("change", () => {
 
-document.querySelectorAll(".filters select")
-  .forEach(select => {
-    select.addEventListener("change", displayVehicles);
+    updateModels();
+    displayVehicles();
+
   });
 
+document.getElementById("model")
+  ?.addEventListener("change", displayVehicles);
+
+document.getElementById("year")
+  ?.addEventListener("change", displayVehicles);
+
+document.getElementById("type")
+  ?.addEventListener("change", displayVehicles);
+
+
 /* Chargement initial */
+
 loadVehicles();
 </script>
 
