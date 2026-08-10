@@ -183,7 +183,7 @@
 
     .filters {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
     }
 
@@ -204,15 +204,59 @@
       border-color: #e21d2f;
     }
 
-    .search-button {
+    .search-button,
+    .reset-button {
       height: 46px;
       padding: 0 22px;
       border: none;
       border-radius: 7px;
-      background: #111;
-      color: white;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    .search-button {
+      background: #111;
+      color: white;
+    }
+
+    .reset-button {
+      background: #f0f0f0;
+      color: #222;
+      border: 1px solid #ddd;
+    }
+
+    .filter-actions {
+      display: flex;
+      gap: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .filter-actions button {
+      flex: 1;
+    }
+
+    .results-count {
+      margin-top: 14px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .vehicle-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vehicle-status {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #f2f2f2;
+      color: #444;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     /* SECTIONS */
@@ -516,11 +560,11 @@
 
       <div class="nav-links">
         <a href="#accueil">Accueil</a>
-        <a href="#vehicules neuve">Véhicules Neuve</a>
-        <a href="#vehicules d'Occasion">Véhicules d'Occasion</a>
-        <a href="#vehicules Importé -3 Ans">vehicules Importé -3 Ans</a>
-        <a href="#vendez votre voiture">Vendez Votre Voiture</a>
-        <a href="#qui sommes-nous?">Qui sommes-nous?</a>
+        <a href="#vehicules" onclick="applyCondition('Neuf')">Véhicules neufs</a>
+        <a href="#vehicules" onclick="applyCondition('Occasion')">Occasion</a>
+        <a href="#vehicules" onclick="applyCondition('Importé -3 ans')">Importé -3 ans</a>
+        <a href="#vendez-voiture">Vendez votre voiture</a>
+        <a href="#qui-sommes-nous">Qui sommes-nous ?</a>
         <a href="#contact">Contact</a>
       </div>
 
@@ -564,74 +608,42 @@
     <h2>🔎 Rechercher un véhicule</h2>
 
     <div class="filters">
+      <input type="text" id="search" placeholder="Marque ou modèle...">
 
-      <input
-        type="text"
-        id="search"
-        placeholder="Marque ou modèle..."
-      >
-
-<select id="model">
-    <option value="">Tous les modèles</option>
-</select>
-  <option>Audi</option>
-  <option>Skoda</option>
-  <option>SEAT</option>
-  <option>BMW</option>
-  <option>Mercedes-Benz</option>
-  <option>Volkswagen</option>
-  <option>Cupra</option>
-  <option>Peugeot</option>
-  <option>Citroën</option>
-  <option>Renault</option>
-  <option>Dacia</option>
-  <option>Toyota</option>
-  <option>Nissan</option>
-  <option>Kia</option>
-  <option>Hyundai</option>
-  <option>Jetta</option>
-  <option>Livan</option>
-  <option>Geely</option>
-  <option>BYD</option>
-  <option>MG</option>
-  <option>Roewe</option>
-  <option>SWM</option>
-  <option>Jetour</option>
-  <option>GAC</option>
-  <option>Changan</option>
-  <option>Chery</option>
-  <option>Kaiyi</option>
-  <option>Lynk &amp; Co</option>
-  <option>Zeekr</option>
-  <option>Li Auto</option>
-  <option>Xiaomi Auto</option>
-  <option>Haval</option>
-  <option>Avatr</option>
-</select>
-
-<select id="model">
-    <option value="">Tous les modèles</option>
-</select>
-
-<select>
-    <option value="">Toutes les années</option>
-      <option>2026</option>
-      <option>2025</option>
-      <option>2024</option>
-</select>
-      <select>
-        <option value="">Tous les types</option>
-        <option>Berline</option>
-        <option>SUV</option>
-        <option>Citadine</option>
-        <option>Utilitaire</option>
+      <select id="brand">
+        <option value="">Toutes les marques</option>
       </select>
 
-      <button class="search-button" onclick="searchVehicles()">
-        Rechercher
-      </button>
+      <select id="model">
+        <option value="">Tous les modèles</option>
+      </select>
 
+      <select id="year">
+        <option value="">Toutes les années</option>
+      </select>
+
+      <select id="type">
+        <option value="">Tous les types</option>
+      </select>
+
+      <select id="fuel">
+        <option value="">Tous les carburants</option>
+      </select>
+
+      <select id="gearbox">
+        <option value="">Toutes les boîtes</option>
+      </select>
+
+      <select id="condition">
+        <option value="">Tous les états</option>
+      </select>
+
+      <div class="filter-actions">
+        <button class="search-button" type="button" onclick="displayVehicles()">Rechercher</button>
+        <button class="reset-button" type="button" onclick="resetFilters()">Tout effacer</button>
+      </div>
     </div>
+    <p id="results-count" class="results-count" aria-live="polite"></p>
 
   </div>
 </div>
@@ -645,7 +657,7 @@
         <div class="section-title">
           <h2>Véhicules disponibles</h2>
           <p>
-            Retrouvez prochainement notre catalogue complet.
+            Catalogue AutoChinaDZ connecté à nos véhicules disponibles.
           </p>
         </div>
 
@@ -740,6 +752,26 @@
       </div>
     </section>
 
+    <!-- VENDRE VOTRE VOITURE -->
+    <section id="vendez-voiture">
+      <div class="container">
+        <div class="section-title">
+          <h2>Vendez votre voiture</h2>
+          <p>Proposez votre véhicule à AutoChinaDZ et contactez-nous pour étudier votre annonce.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUI SOMMES-NOUS -->
+    <section id="qui-sommes-nous">
+      <div class="container">
+        <div class="section-title">
+          <h2>Qui sommes-nous ?</h2>
+          <p>AutoChinaDZ accompagne les clients dans la recherche et l'importation de véhicules depuis la Chine vers l'Algérie.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- WHY US -->
     <section>
       <div class="container">
@@ -831,6 +863,8 @@ const SUPABASE_KEY = "sb_publishable_aQCzbezOTkTn6KEnAwNrGA_ssrxd_6d";
 let vehicles = [];
 
 async function loadVehicles() {
+  const container = document.querySelector(".vehicles");
+
   try {
     const response = await fetch(
       SUPABASE_URL +
@@ -849,219 +883,153 @@ async function loadVehicles() {
 
     vehicles = await response.json();
 
-populateBrands();
-populateYears();
-populateTypes();
-updateModels();
-displayVehicles();
-
+    populateBrands();
+    populateYears();
+    populateTypes();
+    populateFuels();
+    populateGearboxes();
+    populateConditions();
+    updateModels();
+    displayVehicles();
   } catch (error) {
     console.error(error);
-    document.querySelector(".vehicles").innerHTML =
-      "<p>Impossible de charger les véhicules.</p>";
+    if (container) {
+      container.innerHTML = "<p>Impossible de charger les véhicules.</p>";
+    }
   }
 }
 
-/* Marques */
-function populateBrands() {
-  const brandSelect = document.getElementById("brand");
+function uniqueSorted(values) {
+  return [...new Set(values.filter(Boolean).map(String))]
+    .sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" }));
+}
 
-  if (!brandSelect) return;
-
-  const brands = [...new Set(
-    vehicles
-      .map(v => v.brand_fr)
-      .filter(Boolean)
-  )].sort();
-
-  brandSelect.innerHTML =
-    '<option value="">Toutes les marques</option>';
-
-  brands.forEach(brand => {
+function fillSelect(id, label, values) {
+  const select = document.getElementById(id);
+  if (!select) return;
+  select.innerHTML = `<option value="">${label}</option>`;
+  uniqueSorted(values).forEach(value => {
     const option = document.createElement("option");
-    option.value = brand;
-    option.textContent = brand;
-    brandSelect.appendChild(option);
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
   });
 }
 
-/* Années */
+function getCondition(vehicle) {
+  return vehicle.condition_fr || vehicle.condition || vehicle.state_fr || vehicle.state || "";
+}
+
+function populateBrands() {
+  fillSelect("brand", "Toutes les marques", vehicles.map(v => v.brand_fr));
+}
+
 function populateYears() {
-  const yearSelect = document.getElementById("year");
-
-  if (!yearSelect) return;
-
-  const years = [...new Set(
-    vehicles
-      .map(v => v.year)
-      .filter(Boolean)
-  )].sort((a, b) => b - a);
-
-  yearSelect.innerHTML =
-    '<option value="">Toutes les années</option>';
-
+  const select = document.getElementById("year");
+  if (!select) return;
+  const years = [...new Set(vehicles.map(v => v.year).filter(Boolean))]
+    .sort((a, b) => Number(b) - Number(a));
+  select.innerHTML = '<option value="">Toutes les années</option>';
   years.forEach(year => {
     const option = document.createElement("option");
     option.value = year;
     option.textContent = year;
-    yearSelect.appendChild(option);
+    select.appendChild(option);
   });
 }
-/* Types */
+
 function populateTypes() {
-  const typeSelect = document.getElementById("type");
-
-  if (!typeSelect) return;
-
-  const types = [...new Set(
-    vehicles
-      .map(v => v.type)
-      .filter(Boolean)
-  )].sort();
-
-  typeSelect.innerHTML =
-    '<option value="">Tous les types</option>';
-
-  types.forEach(type => {
-    const option = document.createElement("option");
-    option.value = type;
-    option.textContent = type;
-    typeSelect.appendChild(option);
-  });
+  fillSelect("type", "Tous les types", vehicles.map(v => v.type));
 }
 
-/* Affichage des véhicules */
+function populateFuels() {
+  fillSelect("fuel", "Tous les carburants", vehicles.map(v => v.fuel_fr));
+}
+
+function populateGearboxes() {
+  fillSelect("gearbox", "Toutes les boîtes", vehicles.map(v => v.gearbox_fr));
+}
+
+function populateConditions() {
+  fillSelect("condition", "Tous les états", vehicles.map(getCondition));
+}
+
+function updateModels() {
+  const brand = document.getElementById("brand")?.value || "";
+  const models = vehicles
+    .filter(vehicle => !brand || vehicle.brand_fr === brand)
+    .map(vehicle => vehicle.model_fr);
+  fillSelect("model", "Tous les modèles", models);
+}
+
 function displayVehicles() {
   const container = document.querySelector(".vehicles");
-
+  const count = document.getElementById("results-count");
   if (!container) return;
 
-  const search =
-    document.getElementById("search")?.value
-      .toLowerCase()
-      .trim() || "";
-
-  const brand =
-    document.getElementById("brand")?.value || "";
-
-  const model =
-    document.getElementById("model")?.value || "";
-
-  const year =
-    document.getElementById("year")?.value || "";
-
-  const type =
-    document.getElementById("type")?.value || "";
+  const search = document.getElementById("search")?.value.toLowerCase().trim() || "";
+  const brand = document.getElementById("brand")?.value || "";
+  const model = document.getElementById("model")?.value || "";
+  const year = document.getElementById("year")?.value || "";
+  const type = document.getElementById("type")?.value || "";
+  const fuel = document.getElementById("fuel")?.value || "";
+  const gearbox = document.getElementById("gearbox")?.value || "";
+  const condition = document.getElementById("condition")?.value || "";
 
   const filtered = vehicles.filter(vehicle => {
-
-    const name =
-      ((vehicle.brand_fr || "") + " " +
-       (vehicle.model_fr || "")).toLowerCase();
-
+    const name = `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`.toLowerCase();
     return (
       (!search || name.includes(search)) &&
       (!brand || vehicle.brand_fr === brand) &&
       (!model || vehicle.model_fr === model) &&
       (!year || String(vehicle.year) === String(year)) &&
-      (!type || vehicle.type === type)
+      (!type || vehicle.type === type) &&
+      (!fuel || vehicle.fuel_fr === fuel) &&
+      (!gearbox || vehicle.gearbox_fr === gearbox) &&
+      (!condition || getCondition(vehicle) === condition)
     );
   });
 
+  if (count) {
+    count.textContent = `${filtered.length} véhicule${filtered.length > 1 ? "s" : ""} trouvé${filtered.length > 1 ? "s" : ""}`;
+  }
+
   if (filtered.length === 0) {
-    container.innerHTML = "Aucun véhicule trouvé.";
+    container.innerHTML = "<p>Aucun véhicule trouvé avec ces critères.</p>";
     return;
   }
 
   container.innerHTML = filtered.map(vehicle => {
-
-    const name =
-      `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`;
-
-    const details = [
-      vehicle.year,
-      vehicle.type,
-      vehicle.fuel_fr,
-      vehicle.gearbox_fr
-    ].filter(Boolean).join(" · ");
+    const name = `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`.trim() || "Véhicule";
+    const details = [vehicle.year, vehicle.type, vehicle.fuel_fr, vehicle.gearbox_fr]
+      .filter(Boolean).join(" · ");
+    const status = getCondition(vehicle) || (vehicle.available === true ? "Disponible" : "");
+    const image = getVehicleImage(vehicle);
 
     return `
       <article class="vehicle-card">
-
         <div class="vehicle-image">
-          🚗
+          ${image
+            ? `<img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy">`
+            : "🚗"}
         </div>
-
         <div class="vehicle-info">
-
+          ${status ? `<span class="vehicle-status">${escapeHTML(status)}</span>` : ""}
           <h3>${escapeHTML(name)}</h3>
-
-          <p>
-            ${escapeHTML(details || "Véhicule disponible")}
-          </p>
-
+          <p>${escapeHTML(details || "Véhicule disponible")}</p>
           <div class="vehicle-bottom">
-
-            <span class="price">
-              ${escapeHTML(vehicle.price || "Sur demande")}
-            </span>
-
-            <a
-              href="#contact"
-              class="details"
-              onclick="showVehicle('${vehicle.id}')"
-            >
-              Détails
-            </a>
-
+            <span class="price">${escapeHTML(vehicle.price || "Sur demande")}</span>
+            <a href="#contact" class="details">Détails</a>
           </div>
-
         </div>
-
       </article>
     `;
   }).join("");
 }
 
-
-/* Mise à jour de la liste des modèles selon la marque */
-
-function updateModels() {
-
-  const brand =
-    document.getElementById("brand")?.value || "";
-
-  const modelSelect =
-    document.getElementById("model");
-
-  if (!modelSelect || !Array.isArray(vehicles)) return;
-
-  const models = [...new Set(
-    vehicles
-      .filter(vehicle =>
-        !brand || vehicle.brand_fr === brand
-      )
-      .map(vehicle => vehicle.model_fr)
-      .filter(Boolean)
-  )].sort();
-
-  modelSelect.innerHTML =
-    '<option value="">Tous les modèles</option>';
-
-  models.forEach(model => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = model;
-    option.textContent = model;
-
-    modelSelect.appendChild(option);
-  });
+function getVehicleImage(vehicle) {
+  return vehicle.cover_image || vehicle.image_url || vehicle.photo_url || vehicle.image || vehicle.main_image || "";
 }
-
-
-/* Sécurité d'affichage */
 
 function escapeHTML(value) {
   return String(value ?? "")
@@ -1072,31 +1040,46 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
+function escapeAttribute(value) {
+  return escapeHTML(value);
+}
 
-/* Actualisation automatique des filtres */
+function resetFilters() {
+  ["search", "brand", "model", "year", "type", "fuel", "gearbox", "condition"]
+    .forEach(id => {
+      const element = document.getElementById(id);
+      if (element) element.value = "";
+    });
+  updateModels();
+  displayVehicles();
+}
 
-document.getElementById("search")
-  ?.addEventListener("input", displayVehicles);
+function applyCondition(label) {
+  const select = document.getElementById("condition");
+  if (!select) return;
 
-document.getElementById("brand")
-  ?.addEventListener("change", () => {
-
-    updateModels();
-    displayVehicles();
-
+  const normalized = label.toLowerCase();
+  const match = [...select.options].find(option => {
+    const value = option.value.toLowerCase();
+    if (normalized === "neuf") return value.includes("neuf");
+    if (normalized === "occasion") return value.includes("occasion");
+    if (normalized.includes("importé")) return value.includes("import") || value.includes("-3");
+    return value === normalized;
   });
 
-document.getElementById("model")
-  ?.addEventListener("change", displayVehicles);
+  select.value = match ? match.value : "";
+  displayVehicles();
+}
 
-document.getElementById("year")
-  ?.addEventListener("change", displayVehicles);
-
-document.getElementById("type")
-  ?.addEventListener("change", displayVehicles);
-
-
-/* Chargement initial */
+/* Actualisation automatique des filtres */
+document.getElementById("search")?.addEventListener("input", displayVehicles);
+document.getElementById("brand")?.addEventListener("change", () => {
+  updateModels();
+  displayVehicles();
+});
+["model", "year", "type", "fuel", "gearbox", "condition"].forEach(id => {
+  document.getElementById(id)?.addEventListener("change", displayVehicles);
+});
 
 loadVehicles();
 </script>
