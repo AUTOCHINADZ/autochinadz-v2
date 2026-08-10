@@ -1047,7 +1047,7 @@ function displayVehicles() {
           <p>${escapeHTML(details || "Véhicule disponible")}</p>
           <div class="vehicle-bottom">
             <span class="price">${escapeHTML(vehicle.price || "Sur demande")}</span>
-            <a href="#contact" class="details">Détails</a>
+            <a href="#" class="details" onclick="showVehicleDetails(${vehicle.id}); return false;">Détails</a>
           </div>
         </div>
       </article>
@@ -1058,7 +1058,26 @@ function displayVehicles() {
 function getVehicleImage(vehicle) {
   return vehicle.cover_image || vehicle.image_url || vehicle.photo_url || vehicle.image || vehicle.main_image || "";
 }
+function showVehicleDetails(vehicleId) {
+  const vehicle = vehicles.find(
+    v => String(v.id) === String(vehicleId)
+  );
 
+  if (!vehicle) return;
+
+  const image = getVehicleImage(vehicle);
+  const name = `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`.trim();
+  const details = [
+    vehicle.year,
+    vehicle.type,
+    vehicle.fuel_fr,
+    vehicle.gearbox_fr
+  ].filter(Boolean).join(" · ");
+
+  alert(
+    `${name}\n\n${details}\n\nPrix : ${vehicle.price || "Sur demande"}`
+  );
+}
 function escapeHTML(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
