@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8">X
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>AutoChinaDZ | Véhicules & Importation automobile</title>
@@ -618,8 +618,12 @@
       </select>
 
       <select id="year">
-        <option value="">Toutes les années</option>
-      </select>
+  <option value="">Toutes les années</option>
+  <option value="2026">2026</option>
+  <option value="2025">2025</option>
+  <option value="2024">2024</option>
+  <option value="2023">2023</option>
+</select>
 
       <select id="type">
         <option value="">Tous les types</option>
@@ -926,9 +930,11 @@ function populateBrands() {
 function populateYears() {
   const select = document.getElementById("year");
   if (!select) return;
-  const years = [...new Set(vehicles.map(v => v.year).filter(Boolean))]
-    .sort((a, b) => Number(b) - Number(a));
+
+  const years = [2026, 2025, 2024, 2023];
+
   select.innerHTML = '<option value="">Toutes les années</option>';
+
   years.forEach(year => {
     const option = document.createElement("option");
     option.value = year;
