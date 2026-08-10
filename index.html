@@ -711,6 +711,8 @@
       </div>
     </section>
 
+<div id="vehicle-details"></div>
+    
     <!-- SERVICES -->
     <section id="services" class="services">
       <div class="container">
@@ -1074,9 +1076,31 @@ function showVehicleDetails(vehicleId) {
     vehicle.gearbox_fr
   ].filter(Boolean).join(" · ");
 
-  alert(
-    `${name}\n\n${details}\n\nPrix : ${vehicle.price || "Sur demande"}`
-  );
+const target = document.getElementById("vehicle-details");
+if (!target) return;
+
+target.innerHTML = `
+  <section class="vehicle-detail-page">
+    <div class="container">
+      <button type="button" onclick="document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+        ← Retour aux véhicules
+      </button>
+
+      <div class="vehicle-detail-content">
+        ${image ? `<img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}">` : ""}
+
+        <div>
+          <h2>${escapeHTML(name)}</h2>
+          <p>${escapeHTML(details)}</p>
+          <h3>${escapeHTML(vehicle.price || "Sur demande")}</h3>
+          <a href="#contact" class="details">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
+target.scrollIntoView({ behavior: "smooth" });
 }
 function escapeHTML(value) {
   return String(value ?? "")
