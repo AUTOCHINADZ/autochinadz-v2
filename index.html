@@ -627,7 +627,9 @@
   background: #ed1b2f;
 }
 .vehicle-gallery{margin-top:20px}.vehicle-gallery-main{overflow:hidden;aspect-ratio:16/10;border-radius:14px;background:#eceff2}.vehicle-gallery-main img{width:100%;height:100%;max-height:none;object-fit:cover;display:block;border-radius:0}.vehicle-gallery-status{padding:18px;color:#666;text-align:center}.vehicle-gallery-thumbnails{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:10px;margin-top:12px}.vehicle-gallery-thumbnail{padding:0;overflow:hidden;aspect-ratio:4/3;border:2px solid transparent!important;border-radius:9px;background:#eee!important;cursor:pointer}.vehicle-gallery-thumbnail.is-active{border-color:#ed1b2f!important}.vehicle-gallery-thumbnail img{width:100%;height:100%;max-height:none;object-fit:cover;display:block;border-radius:0}.gallery-categories{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.gallery-category{padding:8px 12px!important;border:1px solid #ddd!important;border-radius:999px!important;background:white!important;color:#333!important}.gallery-category.is-active{border-color:#ed1b2f!important;background:#ed1b2f!important;color:white!important}.vehicle-detail-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.vehicle-detail-actions .details{display:inline-block;padding:11px 16px;border-radius:8px;background:#ed1b2f;color:white;font-weight:700}
+.order-modal[hidden]{display:none}.order-modal{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);overflow-y:auto}.order-dialog{width:min(720px,100%);max-height:calc(100vh - 40px);overflow-y:auto;background:white;border-radius:16px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.35)}.order-dialog-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:20px}.order-dialog-header h3{margin:0;color:#171717}.order-close{padding:7px 11px!important;background:#eee!important;color:#222!important;font-size:20px;line-height:1}.order-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.order-field{display:flex;flex-direction:column;gap:6px}.order-field.full{grid-column:1/-1}.order-field label{font-weight:700}.order-field input,.order-field textarea{width:100%;border:1px solid #d5d5d5;border-radius:8px;padding:11px 12px;font:inherit}.order-field textarea{min-height:90px;resize:vertical}.order-required{color:#ed1b2f}.order-actions{grid-column:1/-1;display:flex;justify-content:flex-end;gap:10px;margin-top:5px}.order-actions button{padding:11px 18px}.order-submit{background:#07c160!important}.order-cancel{background:#eee!important;color:#222!important}
 @media(max-width:600px){.vehicle-gallery-thumbnails{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:5px}.vehicle-gallery-thumbnail{flex:0 0 90px;scroll-snap-align:start}}
+@media(max-width:600px){.order-form{grid-template-columns:1fr}.order-field.full{grid-column:auto}.order-actions{grid-column:auto;flex-direction:column-reverse}.order-actions button{width:100%}}
 </style>
   
 <body>
@@ -1243,6 +1245,47 @@ async function loadVehicleGallery(vehicle) {
 
 function showGalleryCategory(category) { renderGallery(category); }
 
+function openOrderForm() {
+  const modal = document.getElementById("order-modal");
+  if (!modal) return;
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("order-first-name")?.focus();
+}
+
+function closeOrderForm() {
+  const modal = document.getElementById("order-modal");
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function submitOrder(event, vehicleId) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const vehicle = vehicles.find(item => String(item.id) === String(vehicleId));
+  if (!vehicle) return;
+
+  const data = new FormData(form);
+  const vehicleName = `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`.trim();
+  const message = [
+    "Bonjour AutoChinaDZ, je souhaite passer une commande.", "",
+    `Véhicule : ${vehicleName}${vehicle.year ? ` (${vehicle.year})` : ""}`,
+    `Nom : ${data.get("last_name")}`,
+    `Prénom : ${data.get("first_name")}`,
+    `Téléphone : ${data.get("phone")}`,
+    `E-mail : ${data.get("email") || "Non renseigné"}`,
+    `Wilaya : ${data.get("wilaya")}`,
+    `Commune : ${data.get("commune")}`,
+    `Adresse : ${data.get("address")}`,
+    `Remarques : ${data.get("notes") || "Aucune"}`
+  ].join("\n");
+
+  window.open(`https://wa.me/213770230248?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  closeOrderForm();
+}
+
 function showVehicleDetails(vehicleId) {
   const vehicle = vehicles.find(
     v => String(v.id) === String(vehicleId)
@@ -1257,9 +1300,6 @@ function showVehicleDetails(vehicleId) {
     vehicle.fuel_fr,
     vehicle.gearbox_fr
   ].filter(Boolean).join(" · ");
-  const orderMessage = `Bonjour AutoChinaDZ, je souhaite passer une commande pour ${name}${vehicle.year ? ` (${vehicle.year})` : ""}. Merci de me contacter.`;
-  const orderUrl = `https://wa.me/213770230248?text=${encodeURIComponent(orderMessage)}`;
-
 const target = document.getElementById("vehicle-details");
 if (!target) return;
 
@@ -1286,12 +1326,31 @@ target.innerHTML = `
           <h3>${escapeHTML(vehicle.price || "Sur demande")}</h3>
           <div class="vehicle-detail-actions">
             <a href="https://wa.me/213770230248" target="_blank" rel="noopener" class="details">WhatsApp</a>
-            <a href="${escapeAttribute(orderUrl)}" target="_blank" rel="noopener" class="details">Passer une commande</a>
+            <button type="button" class="details" onclick="openOrderForm()">Passer une commande</button>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <div id="order-modal" class="order-modal" hidden onclick="if(event.target===this)closeOrderForm()">
+    <div class="order-dialog" role="dialog" aria-modal="true" aria-labelledby="order-title">
+      <div class="order-dialog-header">
+        <div><h3 id="order-title">Passer une commande</h3><p>${escapeHTML(name)}</p></div>
+        <button type="button" class="order-close" onclick="closeOrderForm()" aria-label="Fermer">×</button>
+      </div>
+      <form class="order-form" onsubmit="submitOrder(event, ${vehicle.id})">
+        <div class="order-field"><label for="order-first-name">Prénom <span class="order-required">*</span></label><input id="order-first-name" name="first_name" autocomplete="given-name" required></div>
+        <div class="order-field"><label for="order-last-name">Nom <span class="order-required">*</span></label><input id="order-last-name" name="last_name" autocomplete="family-name" required></div>
+        <div class="order-field"><label for="order-phone">Téléphone <span class="order-required">*</span></label><input id="order-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="order-field"><label for="order-email">E-mail</label><input id="order-email" name="email" type="email" autocomplete="email"></div>
+        <div class="order-field"><label for="order-wilaya">Wilaya <span class="order-required">*</span></label><input id="order-wilaya" name="wilaya" autocomplete="address-level1" required></div>
+        <div class="order-field"><label for="order-commune">Commune <span class="order-required">*</span></label><input id="order-commune" name="commune" autocomplete="address-level2" required></div>
+        <div class="order-field full"><label for="order-address">Adresse complète <span class="order-required">*</span></label><textarea id="order-address" name="address" autocomplete="street-address" required></textarea></div>
+        <div class="order-field full"><label for="order-notes">Informations supplémentaires</label><textarea id="order-notes" name="notes" placeholder="Couleur souhaitée, version, délai…"></textarea></div>
+        <div class="order-actions"><button type="button" class="order-cancel" onclick="closeOrderForm()">Annuler</button><button type="submit" class="order-submit">Envoyer la commande</button></div>
+      </form>
+    </div>
+  </div>
 `;
 
 target.scrollIntoView({ behavior: "smooth" });
