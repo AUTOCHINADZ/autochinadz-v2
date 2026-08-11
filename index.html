@@ -168,18 +168,297 @@
       padding: 0 20px;
     }
 
-    .search-box {
-      max-width: 1100px;
+    .search-showcase {
+      width: min(1400px, 100%);
       margin: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, .85fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .search-box {
       background: white;
-      border-radius: 14px;
-      padding: 22px;
+      border-radius: 28px;
+      padding: 32px;
       box-shadow: 0 15px 40px rgba(0,0,0,.15);
+      border: 1px solid #ededed;
     }
 
     .search-box h2 {
+      font-size: clamp(26px, 3vw, 38px);
+      margin-bottom: 4px;
+    }
+
+    .search-intro {
+      color: #6b6b6b;
+      margin-bottom: 25px;
+    }
+
+    .filter-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 24px 0 14px;
       font-size: 20px;
-      margin-bottom: 15px;
+    }
+
+    .filter-heading-icon {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 50%;
+      background: #f1f1f1;
+      color: #e21d2f;
+      font-size: 14px;
+    }
+
+    .price-mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      background: #f4f4f5;
+    }
+
+    .price-mode-button {
+      min-height: 46px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #222;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .price-mode-button.is-active {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 5px 16px rgba(0,0,0,.18);
+    }
+
+    .price-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 17px;
+    }
+
+    .price-input-card {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      background: #f8f8f9;
+    }
+
+    .price-input-card label {
+      display: block;
+      color: #858585;
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+
+    .price-input-card input {
+      height: 32px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .price-range {
+      position: relative;
+      height: 36px;
+      margin-top: 12px;
+    }
+
+    .price-range-base,
+    .price-range-progress {
+      position: absolute;
+      top: 16px;
+      right: 8px;
+      left: 8px;
+      height: 8px;
+      border-radius: 999px;
+    }
+
+    .price-range-base { background: #d8d8dc; }
+    .price-range-progress { background: linear-gradient(90deg, #e21d2f, #ff5c69); }
+
+    .price-range input[type="range"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 36px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      pointer-events: none;
+      appearance: none;
+    }
+
+    .price-range input[type="range"]::-webkit-slider-thumb {
+      width: 25px;
+      height: 25px;
+      border: 3px solid #111;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      pointer-events: auto;
+      appearance: none;
+      cursor: grab;
+    }
+
+    .price-range input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border: 3px solid #111;
+      border-radius: 50%;
+      background: #fff;
+      pointer-events: auto;
+      cursor: grab;
+    }
+
+    .price-range-values {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #555;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .price-filter-note {
+      margin-top: 8px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .brand-tiles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .brand-tile {
+      min-height: 78px;
+      padding: 10px 8px;
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform .18s, border-color .18s, box-shadow .18s;
+    }
+
+    .brand-tile:hover {
+      transform: translateY(-2px);
+      border-color: #aaa;
+      box-shadow: 0 7px 18px rgba(0,0,0,.08);
+    }
+
+    .brand-tile.is-active {
+      border-color: #e21d2f;
+      box-shadow: 0 0 0 2px rgba(226,29,47,.12);
+    }
+
+    .brand-monogram {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+
+    .brand-tile.is-active .brand-monogram { background: #e21d2f; }
+    .brand-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+
+    .advanced-filter-title {
+      margin: 26px 0 12px;
+      color: #555;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .search-promo {
+      position: relative;
+      min-height: 600px;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 42px;
+      background:
+        radial-gradient(circle at 80% 85%, rgba(226,29,47,.5), transparent 35%),
+        linear-gradient(155deg, #2f3e46 0%, #16232c 48%, #080b0d 100%);
+      color: white;
+      box-shadow: 0 15px 40px rgba(0,0,0,.18);
+    }
+
+    .search-promo::before,
+    .search-promo::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+
+    .search-promo::before { width: 360px; height: 360px; right: -150px; top: -120px; }
+    .search-promo::after { width: 260px; height: 260px; right: -80px; bottom: -80px; }
+
+    .promo-kicker {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      padding: 7px 11px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      color: #ff7d88;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .search-promo h2 {
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+      margin: 24px 0 16px;
+      font-size: clamp(38px, 5vw, 67px);
+      line-height: .98;
+      letter-spacing: -2px;
+    }
+
+    .search-promo h2 span { color: #ff4052; }
+    .search-promo p { position: relative; z-index: 1; max-width: 440px; color: #d2d6d9; }
+
+    .promo-stat {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+      font-weight: 800;
+    }
+
+    .promo-stat strong { color: #ff4052; font-size: 28px; }
+    .promo-car { position: absolute; right: 30px; bottom: 12px; z-index: 1; font-size: clamp(90px, 12vw, 170px); filter: drop-shadow(0 20px 20px rgba(0,0,0,.45)); transform: rotate(-4deg); }
     }
 
     .filters {
@@ -240,6 +519,7 @@
       margin-top: 14px;
       color: #666;
       font-size: 14px;
+      font-weight: 700;
     }
 
     .vehicle-image img {
@@ -474,6 +754,14 @@
       .why-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .search-showcase {
+        grid-template-columns: 1fr;
+      }
+
+      .search-promo {
+        min-height: 410px;
+      }
     }
 
     @media (max-width: 600px) {
@@ -506,6 +794,26 @@
 
   .search-box {
     padding: 18px;
+    border-radius: 20px;
+  }
+
+  .brand-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .search-promo {
+    min-height: 390px;
+    padding: 28px;
+    border-radius: 20px;
+  }
+
+  .search-promo h2 {
+    font-size: 43px;
+  }
+
+  .promo-car {
+    right: 12px;
+    font-size: 105px;
   }
 
   .section-title h2 {
@@ -632,8 +940,10 @@
 @media(max-width:600px){.order-form,.order-step-panel{grid-template-columns:1fr}.order-field.full,.order-summary{grid-column:auto}.order-actions{grid-column:auto;flex-direction:column-reverse}.order-actions button{width:100%}}
 .nav-actions{display:flex;align-items:center;gap:10px}.auth-button{border:1px solid #555;border-radius:8px;background:transparent;color:white;padding:10px 14px;font-weight:700;cursor:pointer}.auth-button:hover{border-color:#e21d2f}.auth-user{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#ddd;font-size:13px}.auth-modal[hidden]{display:none}.auth-modal{position:fixed;inset:0;z-index:2100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.75)}.auth-dialog{width:min(460px,100%);max-height:calc(100vh - 40px);overflow-y:auto;border-radius:16px;background:white;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.35)}.auth-dialog-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px}.auth-dialog-header h3{margin:0}.auth-close{border:0;border-radius:7px;background:#eee;padding:6px 10px;font-size:20px;cursor:pointer}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}.auth-tab{border:1px solid #ddd;border-radius:8px;background:#f5f5f5;padding:10px;font-weight:700;cursor:pointer}.auth-tab.is-active{border-color:#e21d2f;background:#e21d2f;color:white}.auth-form{display:grid;gap:14px}.auth-field{display:grid;gap:6px}.auth-field[hidden]{display:none}.auth-field label{font-weight:700}.auth-field input{width:100%;padding:11px 12px;border:1px solid #d5d5d5;border-radius:8px;font:inherit}.auth-submit{border:0;border-radius:8px;background:#e21d2f;color:white;padding:12px;font-weight:800;cursor:pointer}.auth-submit:disabled{opacity:.6}.auth-message{margin:0;font-weight:700}.auth-message.error{color:#b00020}.auth-message.success{color:#08783e}.auth-hint{color:#666;font-size:13px}
 .sale-card{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:28px;border-radius:16px;background:#171717;color:white}.sale-card h3{margin:0 0 8px;font-size:24px}.sale-card p{margin:0;color:#ccc}.sale-cta{flex:0 0 auto;border:0;border-radius:8px;background:#e21d2f;color:white;padding:13px 20px;font-weight:800;cursor:pointer}.sale-cta:hover{background:#c91628}.sale-account-note{grid-column:1/-1;padding:11px 13px;border-radius:8px;background:#f4f6f8;color:#444}.sale-account-note strong{color:#171717}
+.sale-form-section-title{grid-column:1/-1;margin:8px 0 0;padding-bottom:8px;border-bottom:1px solid #e5e5e5;color:#171717;font-size:17px}.sale-landing-intro{max-width:850px;margin:0 auto 35px;text-align:center}.sale-landing-intro .eyebrow{color:#e21d2f;font-size:13px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.sale-landing-intro h2{margin:8px 0 14px;font-size:clamp(34px,5vw,56px);line-height:1.05}.sale-landing-intro p{color:#666;font-size:17px}.sale-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:34px}.sale-benefit{padding:24px;border:1px solid #e3e3e3;border-radius:16px;background:white}.sale-benefit strong{display:block;margin-bottom:7px;color:#e21d2f;font-size:19px}.sale-benefit p{color:#666}.sale-explainer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-bottom:32px}.sale-explainer article{padding:28px;border-radius:18px;background:#f1f2f4}.sale-explainer h3{margin-bottom:12px;font-size:24px}.sale-explainer p{margin-bottom:12px;color:#555}.sale-questionnaire{margin-bottom:30px;padding:30px;border-radius:20px;background:#111;color:white}.sale-questionnaire h3{font-size:28px}.sale-questionnaire>p{margin:6px 0 20px;color:#bbb}.sale-question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.sale-question{padding:12px 14px;border:1px solid #333;border-radius:10px;background:#1b1b1b;color:#eee}.sale-question::before{content:"✓";margin-right:9px;color:#ff4052;font-weight:900}
 @media(max-width:850px){.nav-actions .nav-button{display:none}.auth-user{display:none}}
 @media(max-width:600px){.sale-card{align-items:stretch;flex-direction:column}.sale-cta{width:100%}}
+@media(max-width:800px){.sale-benefits,.sale-explainer{grid-template-columns:1fr}.sale-question-grid{grid-template-columns:1fr}.sale-questionnaire{padding:22px}}
 </style>
   
 <body>
@@ -692,52 +1002,57 @@
     </section>
 <!-- SEARCH -->
 <div class="search-section">
-  <div class="search-box">
+  <div class="search-showcase">
+    <div class="search-box search-panel">
+      <h2>Trouvez votre prochaine voiture</h2>
+      <p class="search-intro">Choisissez votre budget, votre marque et vos critères en quelques clics.</p>
 
-    <h2>🔎 Rechercher un véhicule</h2>
-
-    <div class="filters">
-      <input type="text" id="search" placeholder="Marque ou modèle...">
-
-      <select id="brand">
-        <option value="">Toutes les marques</option>
-      </select>
-
-      <select id="model">
-        <option value="">Tous les modèles</option>
-      </select>
-
-      <select id="year">
-  <option value="">Toutes les années</option>
-  <option value="2026">2026</option>
-  <option value="2025">2025</option>
-  <option value="2024">2024</option>
-  <option value="2023">2023</option>
-</select>
-
-      <select id="type">
-        <option value="">Tous les types</option>
-      </select>
-
-      <select id="fuel">
-        <option value="">Tous les carburants</option>
-      </select>
-
-      <select id="gearbox">
-        <option value="">Toutes les boîtes</option>
-      </select>
-
-      <select id="condition">
-        <option value="">Tous les états</option>
-      </select>
-
-      <div class="filter-actions">
-        <button class="search-button" type="button" onclick="displayVehicles()">Rechercher</button>
-        <button class="reset-button" type="button" onclick="resetFilters()">Tout effacer</button>
+      <h3 class="filter-heading"><span class="filter-heading-icon">DA</span> Budget</h3>
+      <div class="price-mode-toggle" aria-label="Mode de budget">
+        <button type="button" class="price-mode-button is-active" data-price-mode="price" onclick="setPriceMode('price')">Prix</button>
+        <button type="button" class="price-mode-button" data-price-mode="monthly" onclick="setPriceMode('monthly')">Mensualité</button>
       </div>
-    </div>
-    <p id="results-count" class="results-count" aria-live="polite"></p>
 
+      <div class="price-inputs">
+        <div class="price-input-card"><label id="price-min-label" for="price-min">Minimum (DZD)</label><input id="price-min" type="number" min="0" max="20000000" step="100000" value="0" onchange="updatePriceFilter('min', this.value)"></div>
+        <div class="price-input-card"><label id="price-max-label" for="price-max">Maximum (DZD)</label><input id="price-max" type="number" min="0" max="20000000" step="100000" value="20000000" onchange="updatePriceFilter('max', this.value)"></div>
+      </div>
+      <div class="price-range" aria-label="Fourchette de budget">
+        <div class="price-range-base"></div><div id="price-range-progress" class="price-range-progress"></div>
+        <input id="price-min-range" type="range" min="0" max="20000000" step="100000" value="0" oninput="updatePriceFilter('min', this.value)">
+        <input id="price-max-range" type="range" min="0" max="20000000" step="100000" value="20000000" oninput="updatePriceFilter('max', this.value)">
+      </div>
+      <div class="price-range-values"><span id="price-min-display">0 DZD</span><span id="price-max-display">20 000 000 DZD</span></div>
+      <p class="price-filter-note">Les véhicules dont le prix est sur demande restent visibles. Mensualité indicative calculée sur 60 mois.</p>
+
+      <h3 class="filter-heading"><span class="filter-heading-icon">★</span> Marques populaires</h3>
+      <div id="brand-tiles" class="brand-tiles" aria-label="Marques populaires"></div>
+
+      <p class="advanced-filter-title">Affiner la recherche</p>
+      <div class="filters">
+        <input type="text" id="search" placeholder="Marque ou modèle...">
+        <select id="brand"><option value="">Toutes les marques</option></select>
+        <select id="model"><option value="">Tous les modèles</option></select>
+        <select id="year"><option value="">Toutes les années</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select>
+        <select id="type"><option value="">Tous les types</option></select>
+        <select id="fuel"><option value="">Tous les carburants</option></select>
+        <select id="gearbox"><option value="">Toutes les boîtes</option></select>
+        <select id="condition"><option value="">Tous les états</option></select>
+        <div class="filter-actions">
+          <button class="search-button" type="button" onclick="displayVehicles()">Rechercher</button>
+          <button class="reset-button" type="button" onclick="resetFilters()">Tout effacer</button>
+        </div>
+      </div>
+      <p id="results-count" class="results-count" aria-live="polite"></p>
+    </div>
+
+    <aside class="search-promo" aria-label="Expertise AutoChinaDZ">
+      <span class="promo-kicker">Expertise AutoChinaDZ</span>
+      <h2>La bonne voiture, <span>avec le bon conseil.</span></h2>
+      <p>Comparez les modèles disponibles et profitez d’un accompagnement personnalisé pour votre projet automobile.</p>
+      <div class="promo-stat"><strong id="promo-vehicle-count">0</strong><span>véhicules dans le catalogue</span></div>
+      <div class="promo-car" aria-hidden="true">🚘</div>
+    </aside>
   </div>
 </div>
 
@@ -830,17 +1145,24 @@
     </div>
     <form id="sale-form" class="order-form" onsubmit="submitSaleRequest(event)">
       <div class="sale-account-note">Demande liée au compte : <strong id="sale-account-email"></strong></div>
+      <h4 class="sale-form-section-title">1. Vos coordonnées</h4>
       <div class="order-field"><label for="sale-first-name">Prénom <span class="order-required">*</span></label><input id="sale-first-name" name="first_name" autocomplete="given-name" minlength="2" maxlength="80" required></div>
       <div class="order-field"><label for="sale-last-name">Nom <span class="order-required">*</span></label><input id="sale-last-name" name="last_name" autocomplete="family-name" minlength="2" maxlength="80" required></div>
       <div class="order-field"><label for="sale-phone">Téléphone <span class="order-required">*</span></label><input id="sale-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required></div>
       <div class="order-field"><label for="sale-wilaya">Wilaya <span class="order-required">*</span></label><select id="sale-wilaya" name="wilaya" autocomplete="address-level1" onchange="updateSaleCommunes()" required><option value="">Chargement des wilayas…</option></select></div>
       <div class="order-field"><label for="sale-commune">Commune <span class="order-required">*</span></label><select id="sale-commune" name="commune" autocomplete="address-level2" disabled required><option value="">Choisir d’abord une wilaya</option></select></div>
+      <h4 class="sale-form-section-title">2. Votre voiture</h4>
       <div class="order-field"><label for="sale-brand">Marque <span class="order-required">*</span></label><input id="sale-brand" name="vehicle_brand" maxlength="100" required></div>
       <div class="order-field"><label for="sale-model">Modèle <span class="order-required">*</span></label><input id="sale-model" name="vehicle_model" maxlength="150" required></div>
+      <div class="order-field"><label for="sale-version">Version <span class="order-required">*</span></label><input id="sale-version" name="vehicle_version" maxlength="150" placeholder="Ex. Luxury, Premium…" required></div>
       <div class="order-field"><label for="sale-year">Année <span class="order-required">*</span></label><input id="sale-year" name="vehicle_year" type="number" min="1950" max="2100" inputmode="numeric" required></div>
-      <div class="order-field"><label for="sale-mileage">Kilométrage <span class="order-required">*</span></label><input id="sale-mileage" name="mileage_km" type="number" min="0" max="2000000" inputmode="numeric" required></div>
+      <div class="order-field"><label for="sale-body-type">Type de carrosserie <span class="order-required">*</span></label><select id="sale-body-type" name="body_type" required><option value="">Choisir</option><option>Citadine</option><option>Berline</option><option>SUV</option><option>Coupé</option><option>Break</option><option>Monospace</option><option>Pick-up</option><option>Utilitaire</option><option>Autre</option></select></div>
       <div class="order-field"><label for="sale-fuel">Carburant <span class="order-required">*</span></label><select id="sale-fuel" name="fuel" required><option value="">Choisir</option><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Électrique</option><option>GPL</option></select></div>
-      <div class="order-field"><label for="sale-gearbox">Boîte <span class="order-required">*</span></label><select id="sale-gearbox" name="gearbox" required><option value="">Choisir</option><option>Automatique</option><option>Manuelle</option></select></div>
+      <div class="order-field"><label for="sale-engine">Motorisation <span class="order-required">*</span></label><input id="sale-engine" name="engine" maxlength="100" placeholder="Ex. 1.5 Turbo" required></div>
+      <div class="order-field"><label for="sale-power">Puissance en chevaux <span class="order-required">*</span></label><input id="sale-power" name="power_hp" type="number" min="1" max="3000" inputmode="numeric" placeholder="Ex. 172" required></div>
+      <div class="order-field"><label for="sale-gearbox">Boîte de vitesses <span class="order-required">*</span></label><select id="sale-gearbox" name="gearbox" required><option value="">Choisir</option><option>Automatique</option><option>Manuelle</option></select></div>
+      <div class="order-field"><label for="sale-doors">Nombre de portières <span class="order-required">*</span></label><select id="sale-doors" name="doors" required><option value="">Choisir</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+      <div class="order-field"><label for="sale-mileage">Kilométrage <span class="order-required">*</span></label><input id="sale-mileage" name="mileage_km" type="number" min="0" max="2000000" inputmode="numeric" required></div>
       <div class="order-field"><label for="sale-price">Prix souhaité <span class="order-required">*</span></label><input id="sale-price" name="asking_price" maxlength="100" placeholder="Ex. 3 000 000 DZD" required></div>
       <div class="order-field"><label for="sale-condition">État du véhicule <span class="order-required">*</span></label><select id="sale-condition" name="vehicle_condition" required><option value="">Choisir</option><option>Excellent</option><option>Très bon</option><option>Bon</option><option>À réparer</option></select></div>
       <div class="order-field full"><label for="sale-notes">Description et remarques</label><textarea id="sale-notes" name="customer_notes" maxlength="1500" placeholder="Entretien, options, défauts éventuels…"></textarea></div>
@@ -905,13 +1227,46 @@
     <!-- VENDRE VOTRE VOITURE -->
     <section id="vendez-voiture">
       <div class="container">
-        <div class="section-title">
-          <h2>Vendez votre voiture</h2>
-          <p>Proposez votre véhicule à AutoChinaDZ et contactez-nous pour étudier votre annonce.</p>
+        <div class="sale-landing-intro">
+          <span class="eyebrow">Estimation et reprise AutoChinaDZ</span>
+          <h2>Vendez votre voiture rapidement, simplement et facilement</h2>
+          <p>Vous souhaitez vendre votre voiture dans les meilleures conditions ? Notre équipe vous accompagne pour obtenir une estimation claire et préparer une vente efficace, sans perdre votre temps.</p>
         </div>
+
+        <div class="sale-benefits">
+          <div class="sale-benefit"><strong>Estimation gratuite</strong><p>Décrivez votre véhicule en quelques clics et transmettez-nous toutes les informations nécessaires.</p></div>
+          <div class="sale-benefit"><strong>Sans stress</strong><p>Un conseiller étudie votre demande et vous accompagne à chaque étape de la reprise.</p></div>
+          <div class="sale-benefit"><strong>Au meilleur prix</strong><p>Recevez une proposition cohérente avec les caractéristiques et l’état réel de votre voiture.</p></div>
+        </div>
+
+        <div class="sale-explainer">
+          <article>
+            <h3>Pourquoi vendre une voiture en ligne ?</h3>
+            <p>La vente entre particuliers demande du temps, de la négociation et de nombreuses vérifications. Passer par un professionnel peut aussi aboutir à une proposition différente du montant attendu.</p>
+            <p>Une estimation en ligne vous permet de préparer votre vente avec une base de travail réaliste, en tenant compte du marché et des caractéristiques précises de votre véhicule.</p>
+          </article>
+          <article>
+            <h3>Une démarche simple et efficace</h3>
+            <p>Les acheteurs comparent facilement les prix du marché. Un dossier complet améliore donc la qualité de l’estimation et accélère la prise de décision.</p>
+            <p>Renseignez votre voiture, recevez l’étude AutoChinaDZ, puis convenez d’un rendez-vous de reprise si la proposition vous convient.</p>
+          </article>
+        </div>
+
+        <div class="sale-questionnaire">
+          <h3>Parlez-nous de votre voiture</h3>
+          <p>Les informations suivantes nous permettront de préparer une estimation plus précise.</p>
+          <div class="sale-question-grid">
+            <div class="sale-question">Quelle est la marque ?</div><div class="sale-question">Quel est le modèle ?</div>
+            <div class="sale-question">Quelle est l’année de mise en circulation ?</div><div class="sale-question">Quel est le type de carrosserie ?</div>
+            <div class="sale-question">Quel carburant utilise-t-elle ?</div><div class="sale-question">Quelle est la motorisation ?</div>
+            <div class="sale-question">Quelle est la puissance en chevaux ?</div><div class="sale-question">Quelle est la boîte de vitesses ?</div>
+            <div class="sale-question">Combien de portières possède-t-elle ?</div><div class="sale-question">Quelle est la version ?</div>
+          </div>
+        </div>
+
         <div class="sale-card">
-          <div><h3>Recevez une étude de votre véhicule</h3><p>Créez votre compte, remplissez les informations de la voiture et conservez votre numéro de demande.</p></div>
-          <button type="button" class="sale-cta" onclick="startSellFlow()">Proposer mon véhicule</button>
+          <div><h3>Recevez votre étude en ligne</h3><p>Créez votre compte, remplissez le formulaire et conservez votre numéro de demande pour le suivi.</p></div>
+          <button type="button" class="sale-cta" onclick="startSellFlow()">Estimer ma voiture</button>
         </div>
       </div>
     </section>
@@ -1222,6 +1577,120 @@ async function startSellFlow(event) {
 }
 
 let vehicles = [];
+let priceFilterMode = "price";
+
+const PRICE_FILTERS = {
+  price: { min: 0, max: 20000000, step: 100000, label: "DZD" },
+  monthly: { min: 0, max: 400000, step: 5000, label: "DZD / mois" }
+};
+
+function formatBudget(value, suffix = "DZD") {
+  return `${Math.round(Number(value) || 0).toLocaleString("fr-FR")} ${suffix}`;
+}
+
+function setPriceMode(mode) {
+  priceFilterMode = mode === "monthly" ? "monthly" : "price";
+  const config = PRICE_FILTERS[priceFilterMode];
+  document.querySelectorAll("[data-price-mode]").forEach(button => {
+    button.classList.toggle("is-active", button.dataset.priceMode === priceFilterMode);
+  });
+  ["price-min", "price-max", "price-min-range", "price-max-range"].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.min = config.min;
+    input.max = config.max;
+    input.step = config.step;
+  });
+  document.getElementById("price-min-label").textContent = priceFilterMode === "monthly" ? "Mensualité minimum (DZD)" : "Minimum (DZD)";
+  document.getElementById("price-max-label").textContent = priceFilterMode === "monthly" ? "Mensualité maximum (DZD)" : "Maximum (DZD)";
+  updatePriceFilter("min", config.min, false);
+  updatePriceFilter("max", config.max);
+}
+
+function updatePriceFilter(changed, rawValue, refresh = true) {
+  const config = PRICE_FILTERS[priceFilterMode];
+  const minInput = document.getElementById("price-min");
+  const maxInput = document.getElementById("price-max");
+  const minRange = document.getElementById("price-min-range");
+  const maxRange = document.getElementById("price-max-range");
+  if (!minInput || !maxInput || !minRange || !maxRange) return;
+
+  let minValue = changed === "min" ? Number(rawValue) : Number(minInput.value);
+  let maxValue = changed === "max" ? Number(rawValue) : Number(maxInput.value);
+  minValue = Math.max(config.min, Math.min(config.max, Number.isFinite(minValue) ? minValue : config.min));
+  maxValue = Math.max(config.min, Math.min(config.max, Number.isFinite(maxValue) ? maxValue : config.max));
+  if (minValue > maxValue) {
+    if (changed === "min") maxValue = minValue;
+    else minValue = maxValue;
+  }
+
+  minInput.value = minRange.value = minValue;
+  maxInput.value = maxRange.value = maxValue;
+  document.getElementById("price-min-display").textContent = formatBudget(minValue, config.label);
+  document.getElementById("price-max-display").textContent = formatBudget(maxValue, config.label);
+  const progress = document.getElementById("price-range-progress");
+  const span = config.max - config.min || 1;
+  if (progress) {
+    progress.style.left = `${((minValue - config.min) / span) * 100}%`;
+    progress.style.right = `${((config.max - maxValue) / span) * 100}%`;
+  }
+  if (refresh && vehicles.length) displayVehicles();
+}
+
+function parseVehiclePrice(value) {
+  const digits = String(value || "").replace(/[^0-9]/g, "");
+  if (!digits) return null;
+  const parsed = Number(digits);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function vehicleMatchesBudget(vehicle) {
+  const numericPrice = parseVehiclePrice(vehicle.price);
+  if (numericPrice === null) return true;
+  const minValue = Number(document.getElementById("price-min")?.value || 0);
+  const maxValue = Number(document.getElementById("price-max")?.value || PRICE_FILTERS[priceFilterMode].max);
+  const comparable = priceFilterMode === "monthly" ? numericPrice / 60 : numericPrice;
+  return comparable >= minValue && comparable <= maxValue;
+}
+
+function brandMonogram(name) {
+  return String(name || "Toutes").replace(/[^A-Za-zÀ-ÿ0-9]/g, "").slice(0, 2).toUpperCase() || "AC";
+}
+
+function populateBrandTiles() {
+  const target = document.getElementById("brand-tiles");
+  if (!target) return;
+  const counts = vehicles.reduce((map, vehicle) => {
+    const brand = String(vehicle.brand_fr || "").trim();
+    if (brand) map.set(brand, (map.get(brand) || 0) + 1);
+    return map;
+  }, new Map());
+  const popular = [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "fr"))
+    .slice(0, 7)
+    .map(([brand]) => brand);
+  const brands = ["", ...popular];
+  target.innerHTML = brands.map(brand => `
+    <button type="button" class="brand-tile${brand ? "" : " is-active"}" data-brand="${escapeAttribute(brand)}" onclick="selectBrandTile(this.dataset.brand)">
+      <span class="brand-monogram">${escapeHTML(brand ? brandMonogram(brand) : "★")}</span>
+      <span class="brand-name">${escapeHTML(brand || "Toutes")}</span>
+    </button>`).join("");
+}
+
+function syncBrandTiles() {
+  const selected = document.getElementById("brand")?.value || "";
+  document.querySelectorAll(".brand-tile").forEach(button => button.classList.toggle("is-active", button.dataset.brand === selected));
+}
+
+function selectBrandTile(brand) {
+  const select = document.getElementById("brand");
+  if (!select) return;
+  select.value = brand;
+  updateModels();
+  syncBrandTiles();
+  displayVehicles();
+  document.getElementById("vehicules")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 async function loadVehicles() {
   const container = document.querySelector(".vehicles");
@@ -1265,14 +1734,19 @@ if (photosResponse.ok) {
       vehicle.photo_url = photo.photo_url;
     }
   });
-}
+    }
     populateBrands();
+    populateBrandTiles();
     populateYears();
     populateTypes();
     populateFuels();
     populateGearboxes();
     populateConditions();
     updateModels();
+    const promoCount = document.getElementById("promo-vehicle-count");
+    if (promoCount) promoCount.textContent = vehicles.length.toLocaleString("fr-FR");
+    updatePriceFilter("min", PRICE_FILTERS.price.min, false);
+    updatePriceFilter("max", PRICE_FILTERS.price.max, false);
     displayVehicles();
   } catch (error) {
     console.error(error);
@@ -1371,7 +1845,8 @@ function displayVehicles() {
       (!type || vehicle.type === type) &&
       (!fuel || vehicle.fuel_fr === fuel) &&
       (!gearbox || vehicle.gearbox_fr === gearbox) &&
-      (!condition || getCondition(vehicle) === condition)
+      (!condition || getCondition(vehicle) === condition) &&
+      vehicleMatchesBudget(vehicle)
     );
   });
 
@@ -1624,8 +2099,10 @@ function buildSaleWhatsappMessage(data, reference) {
     `Téléphone : ${data.get("phone")}`,
     `Wilaya / Commune : ${data.get("wilaya")} / ${data.get("commune")}`,
     `Véhicule : ${data.get("vehicle_brand")} ${data.get("vehicle_model")} (${data.get("vehicle_year")})`,
+    `Version / Carrosserie : ${data.get("vehicle_version")} / ${data.get("body_type")}`,
     `Kilométrage : ${data.get("mileage_km")} km`,
-    `Carburant / Boîte : ${data.get("fuel")} / ${data.get("gearbox")}`,
+    `Motorisation / Puissance : ${data.get("engine")} / ${data.get("power_hp")} ch`,
+    `Carburant / Boîte / Portières : ${data.get("fuel")} / ${data.get("gearbox")} / ${data.get("doors")}`,
     `État : ${data.get("vehicle_condition")}`,
     `Prix souhaité : ${data.get("asking_price")}`,
     `Description : ${data.get("customer_notes") || "Aucune"}`
@@ -1661,7 +2138,9 @@ async function submitSaleRequest(event) {
         p_vehicle_brand: data.get("vehicle_brand"), p_vehicle_model: data.get("vehicle_model"),
         p_vehicle_year: Number(data.get("vehicle_year")), p_mileage_km: Number(data.get("mileage_km")),
         p_fuel: data.get("fuel"), p_gearbox: data.get("gearbox"), p_asking_price: data.get("asking_price"),
-        p_vehicle_condition: data.get("vehicle_condition"), p_customer_notes: data.get("customer_notes") || null,
+        p_vehicle_condition: data.get("vehicle_condition"), p_body_type: data.get("body_type"),
+        p_engine: data.get("engine"), p_power_hp: Number(data.get("power_hp")), p_doors: Number(data.get("doors")),
+        p_vehicle_version: data.get("vehicle_version"), p_customer_notes: data.get("customer_notes") || null,
         p_website: data.get("website") || ""
       })
     });
@@ -1924,7 +2403,9 @@ function resetFilters() {
       const element = document.getElementById(id);
       if (element) element.value = "";
     });
+  setPriceMode("price");
   updateModels();
+  syncBrandTiles();
   displayVehicles();
 }
 
@@ -1949,6 +2430,7 @@ function applyCondition(label) {
 document.getElementById("search")?.addEventListener("input", displayVehicles);
 document.getElementById("brand")?.addEventListener("change", () => {
   updateModels();
+  syncBrandTiles();
   displayVehicles();
 });
 ["model", "year", "type", "fuel", "gearbox", "condition"].forEach(id => {
