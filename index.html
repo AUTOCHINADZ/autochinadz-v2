@@ -1257,6 +1257,8 @@ function showVehicleDetails(vehicleId) {
     vehicle.fuel_fr,
     vehicle.gearbox_fr
   ].filter(Boolean).join(" · ");
+  const orderMessage = `Bonjour AutoChinaDZ, je souhaite passer une commande pour ${name}${vehicle.year ? ` (${vehicle.year})` : ""}. Merci de me contacter.`;
+  const orderUrl = `https://wa.me/213770230248?text=${encodeURIComponent(orderMessage)}`;
 
 const target = document.getElementById("vehicle-details");
 if (!target) return;
@@ -1284,7 +1286,7 @@ target.innerHTML = `
           <h3>${escapeHTML(vehicle.price || "Sur demande")}</h3>
           <div class="vehicle-detail-actions">
             <a href="https://wa.me/213770230248" target="_blank" rel="noopener" class="details">WhatsApp</a>
-            <a href="#contact" class="details">Passer une commande</a>
+            <a href="${escapeAttribute(orderUrl)}" target="_blank" rel="noopener" class="details">Passer une commande</a>
           </div>
         </div>
       </div>
