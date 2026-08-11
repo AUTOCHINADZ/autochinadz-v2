@@ -1245,7 +1245,50 @@ async function loadVehicleGallery(vehicle) {
 
 function showGalleryCategory(category) { renderGallery(category); }
 
+let algeriaLocations = [];
+let algeriaLocationsPromise = null;
 let activeOrderStep = 1;
+
+async function loadAlgeriaLocations() {
+  if (!algeriaLocationsPromise) {
+    algeriaLocationsPromise = fetch("./algeria-locations.json", { cache: "force-cache" })
+      .then(response => {
+        if (!response.ok) throw new Error("Liste des wilayas indisponible");
+        return response.json();
+      });
+  }
+  algeriaLocations = await algeriaLocationsPromise;
+  return algeriaLocations;
+}
+
+async function populateOrderWilayas() {
+  const wilayaSelect = document.getElementById("order-wilaya");
+  if (!wilayaSelect) return;
+  wilayaSelect.innerHTML = '<option value="">Chargement des wilayas…</option>';
+  wilayaSelect.disabled = true;
+  try {
+    const locations = await loadAlgeriaLocations();
+    wilayaSelect.innerHTML = '<option value="">Choisir une wilaya</option>' +
+      locations.map(item => `<option value="${escapeAttribute(item.name)}">${escapeHTML(item.code)} — ${escapeHTML(item.name)}</option>`).join("");
+    wilayaSelect.disabled = false;
+    updateOrderCommunes();
+  } catch (error) {
+    console.error(error);
+    wilayaSelect.innerHTML = '<option value="">Liste des wilayas indisponible</option>';
+  }
+}
+
+function updateOrderCommunes() {
+  const wilayaSelect = document.getElementById("order-wilaya");
+  const communeSelect = document.getElementById("order-commune");
+  if (!wilayaSelect || !communeSelect) return;
+  const location = algeriaLocations.find(item => item.name === wilayaSelect.value);
+  communeSelect.innerHTML = location
+    ? '<option value="">Choisir une commune</option>' +
+      location.communes.map(name => `<option value="${escapeAttribute(name)}">${escapeHTML(name)}</option>`).join("")
+    : '<option value="">Choisir d’abord une wilaya</option>';
+  communeSelect.disabled = !location;
+}
 
 function setOrderStep(step) {
   activeOrderStep = step;
@@ -1257,7 +1300,7 @@ function setOrderStep(step) {
   });
 }
 
-function openOrderForm() {
+async function openOrderForm() {
   const modal = document.getElementById("order-modal");
   const form = document.getElementById("order-form");
   if (!modal || !form) return;
@@ -1269,6 +1312,7 @@ function openOrderForm() {
   modal.hidden = false;
   document.body.style.overflow = "hidden";
   document.getElementById("order-first-name")?.focus();
+  await populateOrderWilayas();
 }
 
 function closeOrderForm() {
@@ -1420,8 +1464,8 @@ target.innerHTML = `
           <div class="order-field"><label for="order-last-name">Nom <span class="order-required">*</span></label><input id="order-last-name" name="last_name" autocomplete="family-name" minlength="2" maxlength="80" required></div>
           <div class="order-field"><label for="order-phone">Téléphone <span class="order-required">*</span></label><input id="order-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required></div>
           <div class="order-field"><label for="order-email">E-mail</label><input id="order-email" name="email" type="email" autocomplete="email" maxlength="200"></div>
-          <div class="order-field"><label for="order-wilaya">Wilaya <span class="order-required">*</span></label><input id="order-wilaya" name="wilaya" autocomplete="address-level1" minlength="2" maxlength="100" required></div>
-          <div class="order-field"><label for="order-commune">Commune <span class="order-required">*</span></label><input id="order-commune" name="commune" autocomplete="address-level2" minlength="2" maxlength="100" required></div>
+          <div class="order-field"><label for="order-wilaya">Wilaya <span class="order-required">*</span></label><select id="order-wilaya" name="wilaya" autocomplete="address-level1" onchange="updateOrderCommunes()" required><option value="">Chargement des wilayas…</option></select></div>
+          <div class="order-field"><label for="order-commune">Commune <span class="order-required">*</span></label><select id="order-commune" name="commune" autocomplete="address-level2" disabled required><option value="">Choisir d’abord une wilaya</option></select></div>
           <div class="order-field full"><label for="order-address">Adresse complète <span class="order-required">*</span></label><textarea id="order-address" name="address" autocomplete="street-address" minlength="5" maxlength="500" required></textarea></div>
           <div class="order-actions"><button type="button" class="order-cancel" onclick="closeOrderForm()">Annuler</button><button type="button" onclick="goToOrderStep(2)">Continuer</button></div>
         </div>
