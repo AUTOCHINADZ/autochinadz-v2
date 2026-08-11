@@ -1327,29 +1327,18 @@ async function submitOrder(event, vehicleId) {
   try {
     const response = await fetch(SUPABASE_URL + "/rest/v1/rpc/create_vehicle_order", {
       method: "POST",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json"
-      },
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
       body: JSON.stringify({
         p_vehicle_id: vehicleId,
-        p_first_name: data.get("first_name"),
-        p_last_name: data.get("last_name"),
-        p_phone: data.get("phone"),
-        p_email: data.get("email") || null,
-        p_wilaya: data.get("wilaya"),
-        p_commune: data.get("commune"),
-        p_address: data.get("address"),
-        p_requested_version: data.get("requested_version"),
-        p_requested_color: data.get("requested_color"),
-        p_budget: data.get("budget"),
+        p_first_name: data.get("first_name"), p_last_name: data.get("last_name"),
+        p_phone: data.get("phone"), p_email: data.get("email") || null,
+        p_wilaya: data.get("wilaya"), p_commune: data.get("commune"),
+        p_address: data.get("address"), p_requested_version: data.get("requested_version"),
+        p_requested_color: data.get("requested_color"), p_budget: data.get("budget"),
         p_payment_method: data.get("payment_method"),
-        p_customer_notes: data.get("customer_notes") || null,
-        p_website: data.get("website") || ""
+        p_customer_notes: data.get("customer_notes") || null, p_website: data.get("website") || ""
       })
     });
-
     const result = await response.json();
     if (!response.ok) throw new Error(result.message || "Impossible d’enregistrer la commande");
     const order = Array.isArray(result) ? result[0] : result;
@@ -1357,8 +1346,7 @@ async function submitOrder(event, vehicleId) {
 
     const whatsappMessage = buildOrderWhatsappMessage(vehicle, data, order.order_number);
     document.getElementById("order-reference").textContent = order.order_number;
-    document.getElementById("order-whatsapp-link").href =
-      `https://wa.me/213770230248?text=${encodeURIComponent(whatsappMessage)}`;
+    document.getElementById("order-whatsapp-link").href = `https://wa.me/213770230248?text=${encodeURIComponent(whatsappMessage)}`;
     form.hidden = true;
     document.getElementById("order-confirmation").hidden = false;
   } catch (error) {
@@ -1450,14 +1438,10 @@ target.innerHTML = `
         </div>
       </form>
       <div id="order-confirmation" class="order-confirmation" hidden>
-        <h3>Commande enregistrée</h3>
-        <p>Votre numéro de commande est :</p>
+        <h3>Commande enregistrée</h3><p>Votre numéro de commande est :</p>
         <span id="order-reference" class="order-reference"></span>
         <p>Conservez cette référence pour le suivi de votre commande.</p>
-        <div class="order-confirmation-actions">
-          <a id="order-whatsapp-link" class="order-whatsapp" target="_blank" rel="noopener">Envoyer le résumé sur WhatsApp</a>
-          <button type="button" onclick="closeOrderForm()">Fermer</button>
-        </div>
+        <div class="order-confirmation-actions"><a id="order-whatsapp-link" class="order-whatsapp" target="_blank" rel="noopener">Envoyer le résumé sur WhatsApp</a><button type="button" onclick="closeOrderForm()">Fermer</button></div>
       </div>
     </div>
   </div>
