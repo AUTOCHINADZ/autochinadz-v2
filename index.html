@@ -565,13 +565,18 @@
 .vehicle-detail-content {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  width: 100%;
   gap: 35px;
   align-items: center;
   background: white;
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.vehicle-detail-content > * {
+  min-width: 0;
 }
 
 .vehicle-detail-content img {
@@ -594,7 +599,7 @@
 
 @media (max-width: 768px) {
   .vehicle-detail-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -621,6 +626,8 @@
 .vehicle-detail-page .back-vehicles:hover {
   background: #ed1b2f;
 }
+.vehicle-gallery{margin-top:20px}.vehicle-gallery-main{overflow:hidden;aspect-ratio:16/10;border-radius:14px;background:#eceff2}.vehicle-gallery-main img{width:100%;height:100%;max-height:none;object-fit:cover;display:block;border-radius:0}.vehicle-gallery-status{padding:18px;color:#666;text-align:center}.vehicle-gallery-thumbnails{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:10px;margin-top:12px}.vehicle-gallery-thumbnail{padding:0;overflow:hidden;aspect-ratio:4/3;border:2px solid transparent!important;border-radius:9px;background:#eee!important;cursor:pointer}.vehicle-gallery-thumbnail.is-active{border-color:#ed1b2f!important}.vehicle-gallery-thumbnail img{width:100%;height:100%;max-height:none;object-fit:cover;display:block;border-radius:0}.gallery-categories{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.gallery-category{padding:8px 12px!important;border:1px solid #ddd!important;border-radius:999px!important;background:white!important;color:#333!important}.gallery-category.is-active{border-color:#ed1b2f!important;background:#ed1b2f!important;color:white!important}.vehicle-detail-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.vehicle-detail-actions .details{display:inline-block;padding:11px 16px;border-radius:8px;background:#ed1b2f;color:white;font-weight:700}
+@media(max-width:600px){.vehicle-gallery-thumbnails{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:5px}.vehicle-gallery-thumbnail{flex:0 0 90px;scroll-snap-align:start}}
 </style>
   
 <body>
@@ -1131,6 +1138,111 @@ function displayVehicles() {
 function getVehicleImage(vehicle) {
   return vehicle.cover_image || vehicle.image_url || vehicle.photo_url || vehicle.image || vehicle.main_image || "";
 }
+
+const VEHICLE_PHOTOS_BUCKET = "vehicle-photos";
+const GALLERY_CATEGORIES = ["exterieur", "interieur", "sieges", "details"];
+let activeGallery = { photos: [], category: "all" };
+
+function normalizeStoragePath(path) {
+  return String(path || "").trim().replace(/^\/+|\/+$/g, "").replace(/^vehicle-photos\//, "");
+}
+
+function storagePublicUrl(path) {
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  return `${SUPABASE_URL}/storage/v1/object/public/${VEHICLE_PHOTOS_BUCKET}/${encodedPath}`;
+}
+
+function inferPhotoCategory(path) {
+  const normalized = path.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return GALLERY_CATEGORIES.find(category => normalized.includes(category)) || "uncategorized";
+}
+
+async function listVehicleFolderPhotos(folder) {
+  const prefix = normalizeStoragePath(folder);
+  if (!prefix) return [];
+  const files = [];
+  const limit = 100;
+
+  for (let offset = 0; ; offset += limit) {
+    const response = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${VEHICLE_PHOTOS_BUCKET}`, {
+      method: "POST",
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ prefix, limit, offset, sortBy: { column: "name", order: "asc" } })
+    });
+    if (!response.ok) throw new Error("Impossible de charger la galerie");
+    const page = await response.json();
+    files.push(...page.filter(item => item.id && /\.(avif|gif|jpe?g|png|webp)$/i.test(item.name)));
+    if (page.length < limit) break;
+  }
+
+  return files.map(file => {
+    const path = `${prefix}/${file.name}`;
+    return { url: storagePublicUrl(path), category: inferPhotoCategory(path) };
+  });
+}
+
+function setGalleryPhoto(url, button) {
+  const main = document.getElementById("vehicle-gallery-main-image");
+  if (!main) return;
+  main.src = url;
+  document.querySelectorAll(".vehicle-gallery-thumbnail").forEach(item => item.classList.remove("is-active"));
+  button?.classList.add("is-active");
+}
+
+function renderGallery(category = "all") {
+  activeGallery.category = category;
+  const thumbnails = document.getElementById("vehicle-gallery-thumbnails");
+  const status = document.getElementById("vehicle-gallery-status");
+  if (!thumbnails || !status) return;
+  const filtered = category === "all" ? activeGallery.photos : activeGallery.photos.filter(photo => photo.category === category);
+
+  document.querySelectorAll(".gallery-category").forEach(button => {
+    button.classList.toggle("is-active", button.dataset.category === category);
+  });
+  if (!filtered.length) {
+    thumbnails.innerHTML = "";
+    status.hidden = false;
+    status.textContent = category === "all" ? "Aucune photo supplémentaire disponible." : "Catégorie prête — photos à classer.";
+    return;
+  }
+
+  status.hidden = true;
+  thumbnails.innerHTML = filtered.map((photo, index) => `
+    <button class="vehicle-gallery-thumbnail${index === 0 ? " is-active" : ""}" type="button" data-url="${escapeAttribute(photo.url)}" onclick="setGalleryPhoto(this.dataset.url, this)" aria-label="Afficher la photo ${index + 1}">
+      <img src="${escapeAttribute(photo.url)}" alt="" loading="lazy">
+    </button>`).join("");
+  setGalleryPhoto(filtered[0].url, thumbnails.querySelector(".vehicle-gallery-thumbnail"));
+}
+
+async function loadVehicleGallery(vehicle) {
+  const status = document.getElementById("vehicle-gallery-status");
+  if (!status) return;
+  const cover = getVehicleImage(vehicle);
+  activeGallery = { category: "all", photos: cover ? [{ url: cover, category: "uncategorized" }] : [] };
+  renderGallery();
+
+  if (!vehicle.photo_folder) {
+    status.hidden = false;
+    status.textContent = cover ? "Photo principale" : "Aucune galerie associée à ce véhicule.";
+    return;
+  }
+
+  status.hidden = false;
+  status.textContent = "Chargement des photos…";
+  try {
+    const folderPhotos = await listVehicleFolderPhotos(vehicle.photo_folder);
+    const seen = new Set(activeGallery.photos.map(photo => photo.url));
+    activeGallery.photos.push(...folderPhotos.filter(photo => !seen.has(photo.url)));
+    renderGallery();
+  } catch (error) {
+    console.error(error);
+    status.hidden = false;
+    status.textContent = "La galerie n’a pas pu être chargée. La photo principale reste disponible.";
+  }
+}
+
+function showGalleryCategory(category) { renderGallery(category); }
+
 function showVehicleDetails(vehicleId) {
   const vehicle = vehicles.find(
     v => String(v.id) === String(vehicleId)
@@ -1138,7 +1250,6 @@ function showVehicleDetails(vehicleId) {
 
   if (!vehicle) return;
 
-  const image = getVehicleImage(vehicle);
   const name = `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`.trim();
   const details = [
     vehicle.year,
@@ -1152,18 +1263,29 @@ if (!target) return;
 
 target.innerHTML = `
   <section class="vehicle-detail-page">
-    <d<button type="button" class="back-vehicles" onclick="document.getElementById('vehicules').scrollIntoView({behavior:'smooth'});">
-  ← Retour aux véhicules
-</button>
-
+    <div class="container">
+      <button type="button" class="back-vehicles" onclick="document.getElementById('vehicules').scrollIntoView({behavior:'smooth'});">← Retour aux véhicules</button>
       <div class="vehicle-detail-content">
-        ${image ? `<img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}">` : ""}
-
+        <div class="vehicle-gallery">
+          <div class="vehicle-gallery-main"><img id="vehicle-gallery-main-image" src="${escapeAttribute(getVehicleImage(vehicle))}" alt="${escapeAttribute(name)}"></div>
+          <div class="gallery-categories" aria-label="Catégories de photos">
+            <button type="button" class="gallery-category is-active" data-category="all" onclick="showGalleryCategory('all')">Toutes</button>
+            <button type="button" class="gallery-category" data-category="exterieur" onclick="showGalleryCategory('exterieur')">Extérieur</button>
+            <button type="button" class="gallery-category" data-category="interieur" onclick="showGalleryCategory('interieur')">Intérieur</button>
+            <button type="button" class="gallery-category" data-category="sieges" onclick="showGalleryCategory('sieges')">Sièges</button>
+            <button type="button" class="gallery-category" data-category="details" onclick="showGalleryCategory('details')">Détails</button>
+          </div>
+          <p id="vehicle-gallery-status" class="vehicle-gallery-status">Chargement des photos…</p>
+          <div id="vehicle-gallery-thumbnails" class="vehicle-gallery-thumbnails"></div>
+        </div>
         <div>
           <h2>${escapeHTML(name)}</h2>
           <p>${escapeHTML(details)}</p>
           <h3>${escapeHTML(vehicle.price || "Sur demande")}</h3>
-          <a href="#contact" class="details">Nous contacter</a>
+          <div class="vehicle-detail-actions">
+            <a href="https://wa.me/213770230248" target="_blank" rel="noopener" class="details">WhatsApp</a>
+            <a href="#contact" class="details">Passer une commande</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1171,6 +1293,7 @@ target.innerHTML = `
 `;
 
 target.scrollIntoView({ behavior: "smooth" });
+loadVehicleGallery(vehicle);
 }
 function escapeHTML(value) {
   return String(value ?? "")
