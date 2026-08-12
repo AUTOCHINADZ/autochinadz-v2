@@ -950,6 +950,8 @@
 html[dir="rtl"] body{text-align:right}html[dir="rtl"] .navbar,html[dir="rtl"] .nav-links,html[dir="rtl"] .nav-actions,html[dir="rtl"] .hero-buttons,html[dir="rtl"] .vehicle-bottom,html[dir="rtl"] .admin-heading,html[dir="rtl"] .admin-list-heading{flex-direction:row-reverse}html[dir="rtl"] .sale-question{text-align:right}html[dir="rtl"] .sale-question::before{margin-right:0;margin-left:9px}html[dir="rtl"] input,html[dir="rtl"] textarea,html[dir="rtl"] select{text-align:right}html[dir="rtl"] .vehicle-featured{right:auto;left:12px}
 @media(max-width:950px){.admin-vehicle-row{grid-template-columns:1fr 1fr}.admin-row-actions{grid-column:1/-1}.admin-heading{flex-direction:column}.admin-heading-actions{width:100%}}
 @media(max-width:700px){.language-toggle{padding:8px}.admin-form,.admin-stats{grid-template-columns:1fr}.admin-full,.admin-form h4{grid-column:auto}.admin-vehicle-row{grid-template-columns:1fr}.admin-row-actions{grid-column:auto}.admin-list-heading{align-items:stretch;flex-direction:column}.admin-list-heading input{max-width:none}.vehicle-detail-specs{grid-template-columns:1fr}.vehicle-video iframe,.vehicle-video video{min-height:220px}}
+.about-lead{max-width:900px;margin:0 auto 34px;text-align:center;color:#555;font-size:18px;line-height:1.75}.about-grid,.commitment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.about-card,.commitment-card{padding:26px;border:1px solid #e4e4e4;border-radius:16px;background:#fff}.about-card span,.commitment-card span{display:inline-grid;place-items:center;width:48px;height:48px;margin-bottom:15px;border-radius:13px;background:#111;color:#fff;font-size:22px}.about-card h3,.commitment-card h3{margin:0 0 10px}.about-card p,.commitment-card p{margin:0;color:#606060;line-height:1.65}.values-section{margin-top:36px;padding:30px;border-radius:20px;background:#111;color:#fff}.values-section>h3{text-align:center;font-size:29px}.values-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:22px}.value-card{padding:22px;border:1px solid #333;border-radius:13px;background:#1b1b1b}.value-card strong{display:block;margin-bottom:8px;color:#ff4052;font-size:20px}.value-card p{margin:0;color:#ccc;line-height:1.6}.commitments{background:#f3f4f6}.faq-list{max-width:920px;margin:0 auto;display:grid;gap:11px}.faq-item{border:1px solid #ddd;border-radius:12px;background:#fff;overflow:hidden}.faq-item summary{padding:18px 52px 18px 20px;position:relative;cursor:pointer;font-weight:850;list-style:none}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);color:#e21d2f;font-size:25px}.faq-item[open] summary::after{content:"−"}.faq-item p{margin:0;padding:0 20px 20px;color:#5d5d5d;line-height:1.7}.privacy-summary{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;padding:28px;border-radius:16px;background:#171717;color:#fff}.privacy-summary-icon{font-size:42px}.privacy-summary h2{margin:0 0 8px;font-size:25px}.privacy-summary p{margin:0;color:#ccc;line-height:1.6}.privacy-summary a{display:inline-block;border-radius:8px;background:#e21d2f;color:#fff;padding:11px 16px;font-weight:800}.contact-phone{display:block;margin:15px auto 0;color:#fff;font-size:18px;font-weight:800}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:12px}.footer-links a{color:#ddd}.footer-links a:hover{color:#fff}html[dir="rtl"] .faq-item summary{padding:18px 20px 18px 52px}html[dir="rtl"] .faq-item summary::after{right:auto;left:20px}
+@media(max-width:850px){.about-grid,.commitment-grid,.values-grid{grid-template-columns:1fr}.privacy-summary{grid-template-columns:1fr;text-align:center}.privacy-summary-icon{margin:auto}}
 </style>
   
 <body>
@@ -966,6 +968,7 @@ html[dir="rtl"] body{text-align:right}html[dir="rtl"] .navbar,html[dir="rtl"] .n
   <a href="#vehicules" onclick="applyCondition('Importé -3 ans')">-3 ans</a>
   <a href="#vendez-voiture" onclick="startSellFlow(event)">Vendre</a>
   <a href="#qui-sommes-nous">À propos</a>
+  <a href="#faq">FAQ</a>
   <a href="#contact">Contact</a>
   <button id="admin-nav-button" type="button" class="admin-nav-link" onclick="openAdminArea()" hidden>Administration</button>
 </div>
@@ -1358,49 +1361,65 @@ html[dir="rtl"] body{text-align:right}html[dir="rtl"] .navbar,html[dir="rtl"] .n
       </div>
     </section>
 
-    <!-- QUI SOMMES-NOUS -->
+    <!-- NOUS CONNAÎTRE -->
     <section id="qui-sommes-nous">
       <div class="container">
         <div class="section-title">
-          <h2>Qui sommes-nous ?</h2>
-          <p>AutoChinaDZ accompagne les clients dans la recherche et l'importation de véhicules depuis la Chine vers l'Algérie.</p>
+          <h2>Nous connaître</h2>
+          <p>Votre projet automobile, accompagné simplement.</p>
+        </div>
+        <p class="about-lead">AutoChinaDZ accompagne les particuliers dans la recherche, la comparaison, la commande et l’importation de véhicules depuis la Chine vers l’Algérie. Notre objectif est de rendre chaque étape plus claire, depuis le choix du modèle jusqu’au suivi de la demande.</p>
+        <div class="about-grid">
+          <article class="about-card"><span>🎯</span><h3>Notre mission</h3><p>Vous aider à trouver un véhicule adapté à vos besoins, à votre budget et à vos préférences, avec des informations utiles pour comparer les modèles.</p></article>
+          <article class="about-card"><span>🇩🇿</span><h3>Un service pensé pour l’Algérie</h3><p>Le catalogue, les formulaires de commande, les wilayas et les communes sont conçus pour accompagner les clients sur le marché algérien.</p></article>
+          <article class="about-card"><span>🇨🇳</span><h3>De la Chine à l’Algérie</h3><p>Notre équipe vous informe sur les véhicules disponibles en Chine et vous accompagne dans l’étude de votre projet d’importation.</p></article>
+        </div>
+        <div class="values-section">
+          <h3>Nos valeurs</h3>
+          <div class="values-grid">
+            <article class="value-card"><strong>L’exigence</strong><p>Nous recherchons des informations précises et un suivi sérieux pour chaque projet automobile.</p></article>
+            <article class="value-card"><strong>L’écoute</strong><p>Nous prenons le temps de comprendre votre recherche afin de vous orienter vers une solution adaptée.</p></article>
+            <article class="value-card"><strong>La transparence</strong><p>Les prix, caractéristiques, disponibilités et délais à confirmer sont présentés clairement, sans promesse trompeuse.</p></article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- WHY US -->
-    <section>
+    <!-- NOS ENGAGEMENTS -->
+    <section id="engagements" class="commitments">
       <div class="container">
-
-        <div class="section-title">
-          <h2>Pourquoi AutoChinaDZ ?</h2>
-          <p>Une approche simple et transparente.</p>
+        <div class="section-title"><h2>Nos engagements</h2><p>Un accompagnement clair avant, pendant et après votre demande.</p></div>
+        <div class="commitment-grid">
+          <article class="commitment-card"><span>🔎</span><h3>Des informations détaillées</h3><p>Chaque fiche peut présenter les photos, la vidéo, le prix, l’année, le moteur, la boîte de vitesses, la disponibilité et la localisation.</p></article>
+          <article class="commitment-card"><span>💬</span><h3>Un contact direct</h3><p>Vous pouvez contacter AutoChinaDZ immédiatement sur WhatsApp pour demander des précisions sur un véhicule.</p></article>
+          <article class="commitment-card"><span>📋</span><h3>Des demandes organisées</h3><p>Les commandes et demandes d’estimation reçoivent une référence permettant de faciliter leur identification et leur suivi.</p></article>
         </div>
+      </div>
+    </section>
 
-        <div class="why-grid">
-
-          <div class="why-card">
-            <strong>🇨🇳</strong>
-            <p>Spécialiste des véhicules chinois</p>
-          </div>
-
-          <div class="why-card">
-            <strong>🔎</strong>
-            <p>Informations détaillées sur les véhicules</p>
-          </div>
-
-          <div class="why-card">
-            <strong>🤝</strong>
-            <p>Accompagnement personnalisé</p>
-          </div>
-
-          <div class="why-card">
-            <strong>🇩🇿</strong>
-            <p>Service orienté vers le marché algérien</p>
-          </div>
-
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-title"><h2>Questions fréquentes</h2><p>Les réponses essentielles avant de nous contacter.</p></div>
+        <div class="faq-list">
+          <details class="faq-item"><summary>Comment passer une commande ?</summary><p>Ouvrez la fiche du véhicule, cliquez sur « Passer une commande », connectez-vous ou créez un compte, puis remplissez les deux étapes du formulaire. Une référence de commande sera créée après l’envoi.</p></details>
+          <details class="faq-item"><summary>Le formulaire constitue-t-il une vente définitive ?</summary><p>Non. Il transmet votre demande à AutoChinaDZ. La disponibilité, le prix final, les frais éventuels, les délais et les conditions doivent être confirmés avant toute vente définitive.</p></details>
+          <details class="faq-item"><summary>Puis-je demander un véhicule absent du catalogue ?</summary><p>Oui. Contactez-nous sur WhatsApp en précisant la marque, le modèle, l’année, la version, la couleur souhaitée et votre budget.</p></details>
+          <details class="faq-item"><summary>Comment proposer ma voiture à la vente ?</summary><p>Accédez à la rubrique « Vendez votre voiture », créez votre compte puis complétez les informations demandées. L’estimation éventuelle reste indicative jusqu’à la vérification du véhicule.</p></details>
+          <details class="faq-item"><summary>Pourquoi faut-il créer un compte ?</summary><p>Le compte protège les formulaires de commande et de vente, associe la demande au bon client et facilite son suivi.</p></details>
+          <details class="faq-item"><summary>Le site utilise-t-il des cookies publicitaires ?</summary><p>Dans sa version actuelle, le site mémorise uniquement la langue choisie et la session de connexion nécessaires à son fonctionnement. Aucun outil de publicité ciblée n’est actuellement déclaré.</p></details>
         </div>
+      </div>
+    </section>
 
+    <!-- CONFIDENTIALITÉ -->
+    <section id="confidentialite">
+      <div class="container">
+        <div class="privacy-summary">
+          <div class="privacy-summary-icon">🔐</div>
+          <div><h2>Confidentialité et cookies</h2><p>Les informations envoyées servent à gérer votre compte, votre commande ou votre demande d’estimation. Les renseignements juridiques complets seront publiés dès que les informations officielles d’AutoChinaDZ seront finalisées.</p></div>
+          <a href="#faq">En savoir plus</a>
+        </div>
       </div>
     </section>
 
@@ -1417,12 +1436,13 @@ html[dir="rtl"] body{text-align:right}html[dir="rtl"] .navbar,html[dir="rtl"] .n
 
         <a
           class="whatsapp"
-          href="https://wa.me/"
+          href="https://wa.me/213770230248?text=Bonjour%20AutoChinaDZ%2C%20je%20souhaite%20obtenir%20des%20informations."
           target="_blank"
           rel="noopener"
         >
           💬 Contacter sur WhatsApp
         </a>
+        <a class="contact-phone" href="tel:+213770230248">📞 +213 770 230 248</a>
 
       </div>
     </section>
@@ -1446,6 +1466,7 @@ html[dir="rtl"] body{text-align:right}html[dir="rtl"] .navbar,html[dir="rtl"] .n
 
 <!-- FOOTER -->
 <footer>
+  <div class="footer-links"><a href="#qui-sommes-nous">Nous connaître</a><a href="#engagements">Nos engagements</a><a href="#faq">FAQ</a><a href="#confidentialite">Confidentialité et cookies</a><a href="#contact">Contact</a></div>
   <p>
     © 2026 <strong>AutoChinaDZ</strong> —
     Véhicules & solutions automobiles depuis la Chine.
@@ -1534,7 +1555,28 @@ const STATIC_AR = Object.freeze({
   "Véhicules & solutions automobiles depuis la Chine.":"سيارات وحلول استيراد من الصين.", "Espace sécurisé":"مساحة آمنة", "Administration AutoChinaDZ":"إدارة AutoChinaDZ",
   "Gérez le catalogue, les prix, les photos et la disponibilité des véhicules.":"إدارة الكتالوج والأسعار والصور وتوفر السيارات.", "Fermer":"إغلاق", "+ Ajouter une voiture":"+ إضافة سيارة",
   "Véhicules":"السيارات", "Disponibles":"المتوفرة", "En vedette":"مميزة", "Véhicules du catalogue":"سيارات الكتالوج",
-  "Connexion client":"دخول العميل", "Créer un compte client":"إنشاء حساب عميل", "Connexion":"دخول", "Inscription":"تسجيل", "Adresse e-mail":"البريد الإلكتروني", "Mot de passe":"كلمة المرور", "Confirmer le mot de passe":"تأكيد كلمة المرور"
+  "Connexion client":"دخول العميل", "Créer un compte client":"إنشاء حساب عميل", "Connexion":"دخول", "Inscription":"تسجيل", "Adresse e-mail":"البريد الإلكتروني", "Mot de passe":"كلمة المرور", "Confirmer le mot de passe":"تأكيد كلمة المرور",
+  "FAQ":"الأسئلة الشائعة", "Nous connaître":"تعرف علينا", "Votre projet automobile, accompagné simplement.":"نرافق مشروع سيارتك بكل بساطة.",
+  "AutoChinaDZ accompagne les particuliers dans la recherche, la comparaison, la commande et l’importation de véhicules depuis la Chine vers l’Algérie. Notre objectif est de rendre chaque étape plus claire, depuis le choix du modèle jusqu’au suivi de la demande.":"ترافق AutoChinaDZ الأفراد في البحث عن السيارات ومقارنتها وطلبها واستيرادها من الصين إلى الجزائر. هدفنا هو توضيح كل مرحلة، من اختيار الموديل إلى متابعة الطلب.",
+  "Notre mission":"مهمتنا", "Vous aider à trouver un véhicule adapté à vos besoins, à votre budget et à vos préférences, avec des informations utiles pour comparer les modèles.":"مساعدتك في العثور على سيارة تناسب احتياجاتك وميزانيتك وتفضيلاتك، مع معلومات مفيدة لمقارنة الموديلات.",
+  "Un service pensé pour l’Algérie":"خدمة مصممة للجزائر", "Le catalogue, les formulaires de commande, les wilayas et les communes sont conçus pour accompagner les clients sur le marché algérien.":"تم تصميم الكتالوج واستمارات الطلب والولايات والبلديات لخدمة العملاء في السوق الجزائرية.",
+  "De la Chine à l’Algérie":"من الصين إلى الجزائر", "Notre équipe vous informe sur les véhicules disponibles en Chine et vous accompagne dans l’étude de votre projet d’importation.":"يقدم لك فريقنا معلومات عن السيارات المتوفرة في الصين ويرافقك في دراسة مشروع الاستيراد.",
+  "Nos valeurs":"قيمنا", "L’exigence":"الجودة", "Nous recherchons des informations précises et un suivi sérieux pour chaque projet automobile.":"نحرص على تقديم معلومات دقيقة ومتابعة جدية لكل مشروع سيارة.",
+  "L’écoute":"الإصغاء", "Nous prenons le temps de comprendre votre recherche afin de vous orienter vers une solution adaptée.":"نأخذ الوقت لفهم طلبك وتوجيهك نحو الحل المناسب.",
+  "La transparence":"الشفافية", "Les prix, caractéristiques, disponibilités et délais à confirmer sont présentés clairement, sans promesse trompeuse.":"نقدم الأسعار والمواصفات والتوفر والآجال التي تحتاج إلى تأكيد بوضوح ودون وعود مضللة.",
+  "Nos engagements":"التزاماتنا", "Un accompagnement clair avant, pendant et après votre demande.":"مرافقة واضحة قبل طلبك وأثناءه وبعده.",
+  "Des informations détaillées":"معلومات مفصلة", "Chaque fiche peut présenter les photos, la vidéo, le prix, l’année, le moteur, la boîte de vitesses, la disponibilité et la localisation.":"يمكن لكل بطاقة عرض الصور والفيديو والسعر والسنة والمحرك وعلبة السرعة والتوفر والموقع.",
+  "Un contact direct":"اتصال مباشر", "Vous pouvez contacter AutoChinaDZ immédiatement sur WhatsApp pour demander des précisions sur un véhicule.":"يمكنك الاتصال مباشرة بـ AutoChinaDZ عبر واتساب لطلب معلومات إضافية عن أي سيارة.",
+  "Des demandes organisées":"طلبات منظمة", "Les commandes et demandes d’estimation reçoivent une référence permettant de faciliter leur identification et leur suivi.":"تحصل طلبات الشراء والتقييم على رقم مرجعي لتسهيل التعرف عليها ومتابعتها.",
+  "Questions fréquentes":"الأسئلة الشائعة", "Les réponses essentielles avant de nous contacter.":"أهم الإجابات قبل الاتصال بنا.",
+  "Comment passer une commande ?":"كيف أقدم طلب شراء؟", "Ouvrez la fiche du véhicule, cliquez sur « Passer une commande », connectez-vous ou créez un compte, puis remplissez les deux étapes du formulaire. Une référence de commande sera créée après l’envoi.":"افتح بطاقة السيارة واضغط على «اطلب السيارة»، ثم سجل الدخول أو أنشئ حساباً واملأ مرحلتي الاستمارة. سيتم إنشاء رقم مرجعي بعد الإرسال.",
+  "Le formulaire constitue-t-il une vente définitive ?":"هل الاستمارة عقد بيع نهائي؟", "Non. Il transmet votre demande à AutoChinaDZ. La disponibilité, le prix final, les frais éventuels, les délais et les conditions doivent être confirmés avant toute vente définitive.":"لا. إنها ترسل طلبك إلى AutoChinaDZ. يجب تأكيد التوفر والسعر النهائي والتكاليف المحتملة والآجال والشروط قبل إتمام أي بيع نهائي.",
+  "Puis-je demander un véhicule absent du catalogue ?":"هل يمكنني طلب سيارة غير موجودة في الكتالوج؟", "Oui. Contactez-nous sur WhatsApp en précisant la marque, le modèle, l’année, la version, la couleur souhaitée et votre budget.":"نعم. اتصل بنا عبر واتساب مع تحديد العلامة والموديل والسنة والنسخة واللون المطلوب وميزانيتك.",
+  "Comment proposer ma voiture à la vente ?":"كيف أعرض سيارتي للبيع؟", "Accédez à la rubrique « Vendez votre voiture », créez votre compte puis complétez les informations demandées. L’estimation éventuelle reste indicative jusqu’à la vérification du véhicule.":"انتقل إلى قسم «بع سيارتك»، وأنشئ حساباً ثم أكمل المعلومات المطلوبة. يبقى أي تقييم تقديرياً إلى غاية فحص السيارة.",
+  "Pourquoi faut-il créer un compte ?":"لماذا يجب إنشاء حساب؟", "Le compte protège les formulaires de commande et de vente, associe la demande au bon client et facilite son suivi.":"يحمي الحساب استمارات الطلب والبيع ويربط الطلب بصاحبه ويسهل متابعته.",
+  "Le site utilise-t-il des cookies publicitaires ?":"هل يستخدم الموقع ملفات تعريف ارتباط إعلانية؟", "Dans sa version actuelle, le site mémorise uniquement la langue choisie et la session de connexion nécessaires à son fonctionnement. Aucun outil de publicité ciblée n’est actuellement déclaré.":"في نسخته الحالية، يحفظ الموقع فقط اللغة المختارة وجلسة الدخول الضروريتين لعمله. لا توجد حالياً أدوات معلنة للإعلانات الموجهة.",
+  "Confidentialité et cookies":"الخصوصية وملفات الارتباط", "Les informations envoyées servent à gérer votre compte, votre commande ou votre demande d’estimation. Les renseignements juridiques complets seront publiés dès que les informations officielles d’AutoChinaDZ seront finalisées.":"تستخدم المعلومات المرسلة لإدارة حسابك أو طلبك أو طلب تقييم سيارتك. ستنشر المعلومات القانونية الكاملة عند استكمال البيانات الرسمية لـ AutoChinaDZ.",
+  "En savoir plus":"معرفة المزيد", "Nous connaître Nos engagements FAQ Confidentialité et cookies Contact":"تعرف علينا التزاماتنا الأسئلة الشائعة الخصوصية وملفات الارتباط اتصل بنا"
 });
 
 const CATALOG_AR = Object.freeze({
