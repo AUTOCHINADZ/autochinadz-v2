@@ -3001,7 +3001,7 @@ function setAdminMessage(message = "", type = "") {
 async function loadAdminVehicles() {
   setAdminMessage("Chargement du catalogue…");
   try {
-    adminVehicles = await authenticatedRest("vehicles?select=*&order=featured.desc,created_at.desc");
+    adminVehicles = await authenticatedRest("vehicles?select=*&archived=eq.false&order=featured.desc,created_at.desc");
     const videos = await authenticatedRest("vehicle_videos?select=vehicle_id,video_url,title&order=created_at.desc");
     adminVideoByVehicle = new Map(videos.map(video => [String(video.vehicle_id), video]));
     updateAdminStats();
@@ -3137,11 +3137,11 @@ async function saveAdminVehicle(event) {
 async function deleteAdminVehicle(vehicleId) {
   const vehicle = adminVehicles.find(item => String(item.id) === String(vehicleId));
   const name = vehicle ? `${vehicle.brand_fr || ""} ${vehicle.model_fr || ""}`.trim() : `#${vehicleId}`;
-  if (!confirm(`Supprimer définitivement ${name} du catalogue ?`)) return;
+  if (!confirm(`Retirer ${name} du catalogue ? Les commandes existantes seront conservées.`)) return;
   try {
     setAdminMessage("Suppression en cours…");
     await authenticatedRest("rpc/admin_delete_vehicle", { method: "POST", body: JSON.stringify({ p_vehicle_id: vehicleId }) });
-    setAdminMessage("Le véhicule a été supprimé du catalogue.", "success");
+    setAdminMessage("Le véhicule a été retiré du catalogue. Les commandes existantes sont conservées.", "success");
     await loadVehicles();
     await loadAdminVehicles();
   } catch (error) {
