@@ -1000,6 +1000,18 @@ header{background:rgba(255,255,255,.97);border-bottom:1px solid var(--acd-line);
 @media(max-width:850px){.navbar{height:70px}.nav-actions{gap:7px}.auth-button{padding:9px 10px}.marketplace-hero{padding:18px 12px 12px}.marketplace-hero-grid{gap:12px}.marketplace-feature-card{min-height:350px}.search-section{padding:12px}.search-showcase{grid-template-columns:1fr}.search-promo{min-height:390px}.catalog-market-layout{grid-template-columns:1fr}.catalog-brand-list{grid-template-columns:repeat(2,minmax(0,1fr));max-height:390px;gap:5px}.catalog-brand-button{grid-template-columns:38px minmax(0,1fr) auto;border:1px solid #edf0f4}.catalog-shortcuts{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.navbar{padding:0 12px}.brand-logo-link{width:146px;height:50px}.auth-button{display:none}.marketplace-brand-card{padding:16px}.marketplace-feature-card{min-height:370px}.marketplace-feature-card h1{font-size:38px}.marketplace-category-strip{grid-template-columns:1fr 1fr}.marketplace-category-strip a{min-height:82px;padding:12px}.search-box{padding:18px}.filters{grid-template-columns:1fr}.brand-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.catalog-brand-list{grid-template-columns:1fr;max-height:360px}.catalog-shortcuts{grid-template-columns:1fr}.marketplace-catalog-section{padding:48px 12px}.marketplace-catalog-section .vehicles{grid-template-columns:1fr}}
 
+
+/* Galerie complète de marques inspirée des grands catalogues automobiles */
+#brand-tiles.brand-tiles{grid-template-columns:repeat(8,minmax(0,1fr));gap:0;border:1px solid #e1e5ea;border-radius:16px;overflow:hidden;background:#fff}
+#brand-tiles .brand-tile{min-height:112px;margin:-1px 0 0 -1px;padding:14px 8px;border:1px solid #e1e5ea;border-radius:0;box-shadow:none}
+#brand-tiles .brand-tile:hover{z-index:1;border-color:#e31b2d;background:#fff8f8;transform:none}
+#brand-tiles .brand-logo-frame{width:100%;height:58px}
+#brand-tiles .brand-logo-frame img{max-width:118px;max-height:58px;margin:auto;object-fit:contain}
+#brand-tiles .brand-name{font-size:11px;font-weight:800;color:#3e4858}
+#brand-tiles .is-request-only .brand-name::after{content:" · sur demande";color:#8a93a2;font-weight:600}
+@media(max-width:1150px){#brand-tiles.brand-tiles{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:850px){#brand-tiles.brand-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){#brand-tiles.brand-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}#brand-tiles .brand-tile{min-height:104px}}
 </style>
   
 <body>
@@ -1101,7 +1113,7 @@ header{background:rgba(255,255,255,.97);border-bottom:1px solid var(--acd-line);
       <div class="price-range-values"><span id="price-min-display">0 DZD</span><span id="price-max-display">20 000 000 DZD</span></div>
       <p class="price-filter-note">Les véhicules dont le prix est sur demande restent visibles. Mensualité indicative calculée sur 60 mois.</p>
 
-      <h3 class="filter-heading"><span class="filter-heading-icon">★</span> Marques populaires</h3>
+      <h3 class="filter-heading"><span class="filter-heading-icon">★</span> Toutes les marques automobiles</h3>
       <div id="brand-tiles" class="brand-tiles" aria-label="Marques populaires"></div>
 
       <p class="advanced-filter-title">Affiner la recherche</p>
@@ -2239,6 +2251,71 @@ const BRAND_LOGOS = Object.freeze({
   "Yangwang": "https://www.carlogos.org/car-logos/yangwang-logo.png"
 });
 
+const BRAND_GALLERY_LOGOS = Object.freeze({
+  ...BRAND_LOGOS,
+  "Aion":"https://aicarglobal.com/wp-content/uploads/2024/05/AION.png",
+  "Aito":"https://aicarglobal.com/wp-content/uploads/2024/05/Aito.png",
+  "Arcfox":"https://aicarglobal.com/wp-content/uploads/2024/05/Arcfox.png",
+  "Avatr":"https://aicarglobal.com/wp-content/uploads/2024/05/Avatr.png",
+  "Audi":"https://aicarglobal.com/wp-content/uploads/2024/05/Audi.png",
+  "Baojun":"https://aicarglobal.com/wp-content/uploads/2024/05/Baojun.png",
+  "BAIC":"https://aicarglobal.com/wp-content/uploads/2025/06/Beijing.png",
+  "BAW":"https://aicarglobal.com/wp-content/uploads/2024/05/BAW-2.png",
+  "Bestune":"https://aicarglobal.com/wp-content/uploads/2024/11/Bestune.png",
+  "BMW":"https://aicarglobal.com/wp-content/uploads/2024/05/BMW.png",
+  "BYD":"https://aicarglobal.com/wp-content/uploads/2024/05/BYD.png",
+  "Buick":"https://aicarglobal.com/wp-content/uploads/2024/06/Buick.png",
+  "Cadillac":"https://aicarglobal.com/wp-content/uploads/2024/11/Cadillac.png",
+  "Changan":"https://aicarglobal.com/wp-content/uploads/2024/05/changan.png",
+  "Changan Oshan":"https://aicarglobal.com/wp-content/uploads/2025/06/OSHAN.png",
+  "Changan Kaicheng":"https://aicarglobal.com/wp-content/uploads/2024/05/Changan-Kaicheng.png",
+  "Chery":"https://aicarglobal.com/wp-content/uploads/2024/05/Chery.png",
+  "Chevrolet":"https://aicarglobal.com/wp-content/uploads/2024/07/CHEVROLET-1.png",
+  "Dayun":"https://aicarglobal.com/wp-content/uploads/2024/05/Dayun.png",
+  "Deepal":"https://aicarglobal.com/wp-content/uploads/2024/05/Deepal.png",
+  "Denza":"https://aicarglobal.com/wp-content/uploads/2024/05/DENZA-2.png",
+  "Dongfeng":"https://aicarglobal.com/wp-content/uploads/2024/05/dongfeng-2.png",
+  "Dongfeng eπ":"https://aicarglobal.com/wp-content/uploads/2024/11/Dongfeng-e%CF%80.png",
+  "Exeed":"https://aicarglobal.com/wp-content/uploads/2024/05/EXEED.png",
+  "Dongfeng Nammi":"https://aicarglobal.com/wp-content/uploads/2025/06/nammi.png",
+  "Fangchengbao":"https://aicarglobal.com/wp-content/uploads/2024/05/Fangchengbao-1.png",
+  "FAW":"https://aicarglobal.com/wp-content/uploads/2025/06/FAW.png",
+  "Feidi":"https://aicarglobal.com/wp-content/uploads/2024/07/Feidi.png",
+  "Foton":"https://aicarglobal.com/wp-content/uploads/2024/06/Foton.png",
+  "GAC":"https://aicarglobal.com/wp-content/uploads/2025/06/GAC.png",
+  "Geely Galaxy":"https://aicarglobal.com/wp-content/uploads/2024/11/Galaxy.png",
+  "Geely":"https://aicarglobal.com/wp-content/uploads/2024/05/geely-3.png",
+  "GWM":"https://aicarglobal.com/wp-content/uploads/2024/05/GWM-1.png",
+  "Haval":"https://aicarglobal.com/wp-content/uploads/2024/05/Haval.png",
+  "Hedmos":"https://aicarglobal.com/wp-content/uploads/2025/06/HEDMOS.png",
+  "HIMA":"https://aicarglobal.com/wp-content/uploads/2024/11/HIMA.png",
+  "HiPhi":"https://aicarglobal.com/wp-content/uploads/2024/05/Hiphi.png",
+  "Honda":"https://aicarglobal.com/wp-content/uploads/2024/05/Honda-1.png",
+  "Hongqi":"https://aicarglobal.com/wp-content/uploads/2024/05/hongqi.png",
+  "Huanghai":"https://aicarglobal.com/wp-content/uploads/2024/07/Huanghai.png",
+  "Hycan":"https://aicarglobal.com/wp-content/uploads/2024/06/Hycan.png",
+  "Hyper":"https://aicarglobal.com/wp-content/uploads/2024/05/Hyper.png",
+  "iCar":"https://aicarglobal.com/wp-content/uploads/2024/05/iCAR-1.png",
+  "Isuzu":"https://aicarglobal.com/wp-content/uploads/2024/05/ISUZU.png",
+  "IM Motors":"https://aicarglobal.com/wp-content/uploads/2024/05/IM.png",
+  "JAC":"https://aicarglobal.com/wp-content/uploads/2024/05/JAC.png",
+  "Jeep":"https://aicarglobal.com/wp-content/uploads/2025/06/Jeep.png",
+  "Jetour":"https://aicarglobal.com/wp-content/uploads/2024/05/jetour.png",
+  "Jetta":"https://aicarglobal.com/wp-content/uploads/2025/06/Jetta.png",
+  "Jiyue":"https://aicarglobal.com/wp-content/uploads/2024/07/Jiyue.png",
+  "Kia":"https://aicarglobal.com/wp-content/uploads/2024/07/kia-logo-1.png",
+  "JMEV":"https://aicarglobal.com/wp-content/uploads/2024/06/JMEV.png",
+  "Landian":"https://aicarglobal.com/wp-content/uploads/2025/06/Landian.png",
+  "Li Auto":"https://aicarglobal.com/wp-content/uploads/2024/05/Li.png",
+  "Leapmotor":"https://aicarglobal.com/wp-content/uploads/2024/05/Leapmotor.png",
+  "Lingbox":"https://aicarglobal.com/wp-content/uploads/2024/06/Lingbox.png",
+  "Lingxi":"https://aicarglobal.com/wp-content/uploads/2025/06/Lingxi.png",
+  "Link Tour":"https://aicarglobal.com/wp-content/uploads/2024/07/Link-Tour-1.png",
+  "Lotus":"https://aicarglobal.com/wp-content/uploads/2024/05/Lotus.png",
+  "Livan":"https://aicarglobal.com/wp-content/uploads/2025/06/Livan.png"
+});
+
+
 const CHINESE_BRAND_SHOWCASE = Object.freeze([
   "BYD", "Geely", "Chery", "Changan", "Jetour", "GAC",
   "Hongqi", "Haval", "BAIC", "JAC", "Dongfeng", "NIO",
@@ -2416,7 +2493,7 @@ function brandMonogram(name) {
 }
 
 function brandLogoMarkup(name, extraClass = "") {
-  const logo = BRAND_LOGOS[name];
+  const logo = BRAND_GALLERY_LOGOS[name] || BRAND_LOGOS[name];
   const fallback = escapeHTML(brandMonogram(name));
   if (!logo) return `<span class="brand-logo-frame ${extraClass}"><span class="brand-logo-fallback">${fallback}</span></span>`;
   return `<span class="brand-logo-frame ${extraClass}"><img src="${escapeAttribute(logo)}" alt="Logo ${escapeAttribute(name)}" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="brand-logo-fallback" hidden>${fallback}</span></span>`;
@@ -2435,20 +2512,12 @@ function renderChineseBrandShowcase() {
 function populateBrandTiles() {
   const target = document.getElementById("brand-tiles");
   if (!target) return;
-  const counts = vehicles.reduce((map, vehicle) => {
-    const brand = String(vehicle.brand_fr || "").trim();
-    if (brand) map.set(brand, (map.get(brand) || 0) + 1);
-    return map;
-  }, new Map());
-  const popular = [...counts.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "fr"))
-    .slice(0, 7)
-    .map(([brand]) => brand);
-  const brands = ["", ...popular];
+  const availableBrands = new Set(vehicles.map(vehicle => String(vehicle.brand_fr || "").trim()).filter(Boolean));
+  const brands = Object.keys(BRAND_GALLERY_LOGOS).sort((a,b)=>a.localeCompare(b,"fr",{sensitivity:"base"}));
   target.innerHTML = brands.map(brand => `
-    <button type="button" class="brand-tile${brand ? "" : " is-active"}" data-brand="${escapeAttribute(brand)}" onclick="selectBrandTile(this.dataset.brand)">
-      ${brand ? brandLogoMarkup(brand) : '<span class="brand-monogram">★</span>'}
-      <span class="brand-name">${escapeHTML(brand ? (currentLanguage === "ar" ? (vehicles.find(vehicle => vehicle.brand_fr === brand)?.brand_ar || brand) : brand) : (currentLanguage === "ar" ? "الكل" : "Toutes"))}</span>
+    <button type="button" class="brand-tile${availableBrands.has(brand) ? "" : " is-request-only"}" data-brand="${escapeAttribute(brand)}" onclick="selectBrandTile(this.dataset.brand)" aria-label="${escapeAttribute(brand)}">
+      ${brandLogoMarkup(brand)}
+      <span class="brand-name">${escapeHTML(brand)}</span>
     </button>`).join("");
 }
 
@@ -2506,12 +2575,15 @@ function syncBrandTiles() {
 
 function selectBrandTile(brand) {
   const select = document.getElementById("brand");
+  const search = document.getElementById("search");
   if (!select) return;
-  select.value = brand;
+  const hasBrand = [...select.options].some(option => option.value === brand);
+  select.value = hasBrand ? brand : "";
+  if (search) search.value = hasBrand ? "" : brand;
+  resetVehicleDisplayLimit();
   updateModels();
   syncBrandTiles();
   displayVehicles();
-  document.getElementById("vehicules")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 async function loadVehicles() {
