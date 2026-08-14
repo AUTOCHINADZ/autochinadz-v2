@@ -2312,7 +2312,17 @@ const BRAND_GALLERY_LOGOS = Object.freeze({
   "Lingxi":"https://aicarglobal.com/wp-content/uploads/2025/06/Lingxi.png",
   "Link Tour":"https://aicarglobal.com/wp-content/uploads/2024/07/Link-Tour-1.png",
   "Lotus":"https://aicarglobal.com/wp-content/uploads/2024/05/Lotus.png",
-  "Livan":"https://aicarglobal.com/wp-content/uploads/2025/06/Livan.png"
+  "Livan":"https://aicarglobal.com/wp-content/uploads/2025/06/Livan.png",
+  "Great Wall":"https://aicarglobal.com/wp-content/uploads/2024/05/GWM-1.png",
+  "Maxus":"https://aicarglobal.com/wp-content/uploads/2024/11/MAXUS.png",
+  "NIO":"https://aicarglobal.com/wp-content/uploads/2024/05/NIO.png",
+  "Ora":"https://aicarglobal.com/wp-content/uploads/2024/11/Ora.png",
+  "Seres":"https://aicarglobal.com/wp-content/uploads/2025/06/SERES.png",
+  "Tank":"https://aicarglobal.com/wp-content/uploads/2024/05/Tank.png",
+  "Voyah":"https://aicarglobal.com/wp-content/uploads/2024/05/voyah.png",
+  "Wuling":"https://aicarglobal.com/wp-content/uploads/2024/05/wuling-2.png",
+  "XPeng":"https://aicarglobal.com/wp-content/uploads/2024/05/Xpeng.png",
+  "Yangwang":"https://aicarglobal.com/wp-content/uploads/2024/05/Yangwang.png"
 });
 
 
@@ -2513,7 +2523,7 @@ function populateBrandTiles() {
   const target = document.getElementById("brand-tiles");
   if (!target) return;
   const availableBrands = new Set(vehicles.map(vehicle => String(vehicle.brand_fr || "").trim()).filter(Boolean));
-  const brands = Object.keys(BRAND_GALLERY_LOGOS).sort((a,b)=>a.localeCompare(b,"fr",{sensitivity:"base"}));
+  const brands = Object.keys(BRAND_GALLERY_LOGOS).filter(brand => !["Jaecoo","Omoda"].includes(brand)).sort((a,b)=>a.localeCompare(b,"fr",{sensitivity:"base"}));
   target.innerHTML = brands.map(brand => `
     <button type="button" class="brand-tile${availableBrands.has(brand) ? "" : " is-request-only"}" data-brand="${escapeAttribute(brand)}" onclick="selectBrandTile(this.dataset.brand)" aria-label="${escapeAttribute(brand)}">
       ${brandLogoMarkup(brand)}
