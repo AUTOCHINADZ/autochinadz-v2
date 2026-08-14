@@ -255,8 +255,25 @@ const savedCars=JSON.parse(localStorage.getItem("acd-cars")||"null");
 let cars=savedCars?[...savedCars,...seedCars.filter(n=>!savedCars.some(s=>s.id===n.id))]:seedCars;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-const money=n=>new Intl.NumberFormat(lang==="ar"?"ar-DZ":"fr-DZ").format(n)+" DZD";
+const money=n=>{if(n===null||n===undefined||n===""||String(n).toLowerCase().includes("confirmer"))return lang==="ar"?"السعر عند الطلب":"Prix à confirmer";const value=typeof n==="number"?n:Number(String(n).replace(/[^0-9.]/g,""));return Number.isFinite(value)&&value>0?new Intl.NumberFormat(lang==="ar"?"ar-DZ":"fr-DZ").format(value)+" DZD":String(n)}
 function fillSelect(id,items){$(id).innerHTML=items.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("")}
+const SUPABASE_URL="https://dddoifppwastcsieaamc.supabase.co";
+const SUPABASE_KEY="sb_publishable_aQCzbezOTkTn6KEnAwNrGA_ssrxd_6d";
+async function loadDatabaseCars(){
+ try{
+  const headers={apikey:SUPABASE_KEY};
+  const [vr,pr]=await Promise.all([
+   fetch(SUPABASE_URL+"/rest/v1/vehicles?select=id,brand_fr,brand_ar,model_fr,model_ar,year,price,type,fuel_fr,fuel_ar,gearbox_fr,gearbox_ar,engine_fr,engine_ar,power,seats,description_fr,description_ar,featured,available,vehicle_status,location_fr,location_ar&archived=eq.false&order=featured.desc,id.asc&limit=500",{headers}),
+   fetch(SUPABASE_URL+"/rest/v1/vehicle_photos?select=vehicle_id,photo_url,sort_order&order=sort_order.asc&limit=1000",{headers})
+  ]);
+  if(!vr.ok)throw new Error("Catalogue indisponible");
+  const rows=await vr.json(),photos=pr.ok?await pr.json():[];
+  const byVehicle=photos.reduce((a,p)=>{(a[p.vehicle_id]||=[]).push(p.photo_url);return a},{});
+  const mapped=rows.map(v=>({id:20000+v.id,dbId:v.id,brand:v.brand_fr||v.brand_ar||"Autre",model:v.model_fr||v.model_ar||"Modèle",year:v.year||2026,price:v.price||"À confirmer",fuel:v.fuel_fr||v.fuel_ar||"À confirmer",gearbox:v.gearbox_fr||v.gearbox_ar||"À confirmer",type:v.type||"Autre type de véhicule",category:v.vehicle_status==="occasion"?"Véhicules d’Occasion":v.vehicle_status==="importe_moins_3_ans"?"Importé -3 Ans":"Véhicules Neufs",availability:v.available?"Disponible":"Sur commande",origin:"Chine",finish:"À confirmer",exchange:"Pas d'échanges",power:v.power||"À confirmer",engine:v.engine_fr||v.engine_ar||"À confirmer",location:v.location_fr||v.location_ar||"Chine",featured:!!v.featured,image:(byVehicle[v.id]||[])[0]||"https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80",gallery:byVehicle[v.id]||[],seats:v.seats||5,description:v.description_fr||v.description_ar||""}));
+  const localOnly=cars.filter(x=>!x.dbId&&!mapped.some(m=>m.brand===x.brand&&m.model===x.model&&m.year===x.year));
+  cars=[...mapped,...localOnly];initFilters();renderCars();renderBrands();$("statCars").textContent=cars.filter(x=>x.availability!=="Vendu").length;
+ }catch(err){console.warn("AutoChinaDZ utilise le catalogue local de secours.",err)}
+}
 function initSale(){
  const names=["BYD","Geely","Chery","Changan","Jetour","GAC","Hongqi","Haval","BAIC","JAC","Dongfeng","NIO","XPeng","Zeekr","Leapmotor","Li Auto","Wuling","Xiaomi Auto"];
  $("saleBrands").innerHTML=names.map(n=>'<button type="button" class="brand-pick" onclick="chooseSaleBrand(\''+n.replace(/'/g,"\\'")+'\',this)">'+n+'</button>').join("");
@@ -309,6 +326,6 @@ function editCar(id){const c=cars.find(x=>x.id===id);if(!c)return;const map={edi
 function deleteCar(id){if(confirm("Supprimer cette annonce ?")){cars=cars.filter(c=>c.id!==id);persist();renderAdmin()}}
 function persist(){localStorage.setItem("acd-cars",JSON.stringify(cars));initFilters();renderCars()}
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal("detailModal");closeModal("adminModal")}});
-initFilters();initSale();renderBrands();applyLang();
+initFilters();initSale();renderBrands();applyLang();loadDatabaseCars();
 </script>
 </body></html>
