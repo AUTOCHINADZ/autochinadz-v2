@@ -2419,7 +2419,7 @@ function brandLogoMarkup(name, extraClass = "") {
   const logo = BRAND_LOGOS[name];
   const fallback = escapeHTML(brandMonogram(name));
   if (!logo) return `<span class="brand-logo-frame ${extraClass}"><span class="brand-logo-fallback">${fallback}</span></span>`;
-  return `<span class="brand-logo-frame ${extraClass}"><img src="${escapeAttribute(logo)}" alt="Logo ${escapeAttribute(name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="brand-logo-fallback" hidden>${fallback}</span></span>`;
+  return `<span class="brand-logo-frame ${extraClass}"><img src="${escapeAttribute(logo)}" alt="Logo ${escapeAttribute(name)}" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="brand-logo-fallback" hidden>${fallback}</span></span>`;
 }
 
 function renderChineseBrandShowcase() {
