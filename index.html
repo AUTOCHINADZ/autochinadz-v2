@@ -1000,9 +1000,6 @@ header{background:rgba(255,255,255,.97);border-bottom:1px solid var(--acd-line);
 @media(max-width:850px){.navbar{height:70px}.nav-actions{gap:7px}.auth-button{padding:9px 10px}.marketplace-hero{padding:18px 12px 12px}.marketplace-hero-grid{gap:12px}.marketplace-feature-card{min-height:350px}.search-section{padding:12px}.search-showcase{grid-template-columns:1fr}.search-promo{min-height:390px}.catalog-market-layout{grid-template-columns:1fr}.catalog-brand-list{grid-template-columns:repeat(2,minmax(0,1fr));max-height:390px;gap:5px}.catalog-brand-button{grid-template-columns:38px minmax(0,1fr) auto;border:1px solid #edf0f4}.catalog-shortcuts{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.navbar{padding:0 12px}.brand-logo-link{width:146px;height:50px}.auth-button{display:none}.marketplace-brand-card{padding:16px}.marketplace-feature-card{min-height:370px}.marketplace-feature-card h1{font-size:38px}.marketplace-category-strip{grid-template-columns:1fr 1fr}.marketplace-category-strip a{min-height:82px;padding:12px}.search-box{padding:18px}.filters{grid-template-columns:1fr}.brand-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.catalog-brand-list{grid-template-columns:1fr;max-height:360px}.catalog-shortcuts{grid-template-columns:1fr}.marketplace-catalog-section{padding:48px 12px}.marketplace-catalog-section .vehicles{grid-template-columns:1fr}}
 
-
-/* Marques présentées sans emblèmes graphiques non vérifiés */
-.brand-tile{min-height:64px;padding:12px}.brand-tile .brand-name{font-size:14px;white-space:normal;line-height:1.25}.catalog-brand-button{grid-template-columns:minmax(0,1fr) auto;padding:10px 11px}.catalog-brand-button .brand-logo-frame,.brand-tile .brand-logo-frame,.brand-logo-fallback,.brand-monogram{display:none!important}
 </style>
   
 <body>
@@ -2418,8 +2415,11 @@ function brandMonogram(name) {
   return String(name || "Toutes").replace(/[^A-Za-zÀ-ÿ0-9]/g, "").slice(0, 2).toUpperCase() || "AC";
 }
 
-function brandLogoMarkup() {
-  return "";
+function brandLogoMarkup(name, extraClass = "") {
+  const logo = BRAND_LOGOS[name];
+  const fallback = escapeHTML(brandMonogram(name));
+  if (!logo) return `<span class="brand-logo-frame ${extraClass}"><span class="brand-logo-fallback">${fallback}</span></span>`;
+  return `<span class="brand-logo-frame ${extraClass}"><img src="${escapeAttribute(logo)}" alt="Logo ${escapeAttribute(name)}" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="brand-logo-fallback" hidden>${fallback}</span></span>`;
 }
 
 function renderChineseBrandShowcase() {
@@ -2447,6 +2447,7 @@ function populateBrandTiles() {
   const brands = ["", ...popular];
   target.innerHTML = brands.map(brand => `
     <button type="button" class="brand-tile${brand ? "" : " is-active"}" data-brand="${escapeAttribute(brand)}" onclick="selectBrandTile(this.dataset.brand)">
+      ${brand ? brandLogoMarkup(brand) : '<span class="brand-monogram">★</span>'}
       <span class="brand-name">${escapeHTML(brand ? (currentLanguage === "ar" ? (vehicles.find(vehicle => vehicle.brand_fr === brand)?.brand_ar || brand) : brand) : (currentLanguage === "ar" ? "الكل" : "Toutes"))}</span>
     </button>`).join("");
 }
@@ -2461,7 +2462,7 @@ function populateCatalogBrandList() {
   }, new Map());
   const selected = document.getElementById("brand")?.value || "";
   const allLabel = currentLanguage === "ar" ? "كل العلامات" : "Toutes";
-  const buttons = [`<button type="button" class="catalog-brand-button${selected ? "" : " is-active"}" data-brand="" onclick="selectCatalogBrand('')"><span>${allLabel}</span><small>${vehicles.length}</small></button>`];
+  const buttons = [`<button type="button" class="catalog-brand-button${selected ? "" : " is-active"}" data-brand="" onclick="selectCatalogBrand('')"><span class="brand-logo-frame"><span class="brand-logo-fallback">★</span></span><span>${allLabel}</span><small>${vehicles.length}</small></button>`];
   [...counts.entries()].sort((a,b)=>a[0].localeCompare(b[0],"fr",{sensitivity:"base"})).forEach(([brand,count]) => {
     buttons.push(`<button type="button" class="catalog-brand-button${selected === brand ? " is-active" : ""}" data-brand="${escapeAttribute(brand)}" onclick="selectCatalogBrand(this.dataset.brand)">${brandLogoMarkup(brand)}<span>${escapeHTML(brand)}</span><small>${count}</small></button>`);
   });
