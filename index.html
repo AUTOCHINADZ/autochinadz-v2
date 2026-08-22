@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AutoChinaDZ | Véhicules & Importation automobile</title>x
+  <title>AutoChinaDZ | Véhicules & Importation automobile</title>
   <meta name="description" content="AutoChinaDZ - Véhicules, importation automobile et solutions automobiles depuis la Chine.">
 
   <style>
@@ -2470,16 +2470,20 @@ function populateYears() {
   const select = document.getElementById("year");
   if (!select) return;
 
-  const years = [2026, 2025, 2024, 2023];
+  const previous = select.value;
+  const condition = document.getElementById("condition")?.value || "";
+  const minimumYear = condition === "occasion" ? 1990 : 2023;
+  const years = Array.from({ length: 2026 - minimumYear + 1 }, (_, index) => 2026 - index);
 
   select.innerHTML = `<option value="">${tr("allYears")}</option>`;
-
   years.forEach(year => {
     const option = document.createElement("option");
-    option.value = year;
-    option.textContent = year;
+    option.value = String(year);
+    option.textContent = String(year);
     select.appendChild(option);
   });
+
+  select.value = years.includes(Number(previous)) ? previous : "";
 }
 
 function populateTypes() {
@@ -3481,6 +3485,7 @@ function resetFilters() {
       if (element) element.value = "";
     });
   setPriceMode("price");
+  populateYears();
   updateModels();
   syncBrandTiles();
   displayVehicles();
@@ -3492,6 +3497,7 @@ function applyCondition(label) {
 
   const normalized = label.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   select.value = normalized.includes("occasion") ? "occasion" : normalized.includes("import") || normalized.includes("-3") ? "importe_moins_3_ans" : "neuf";
+  populateYears();
   displayVehicles();
 }
 
@@ -3502,8 +3508,12 @@ document.getElementById("brand")?.addEventListener("change", () => {
   syncBrandTiles();
   displayVehicles();
 });
-["model", "year", "type", "fuel", "gearbox", "condition", "availability"].forEach(id => {
+["model", "year", "type", "fuel", "gearbox", "availability"].forEach(id => {
   document.getElementById(id)?.addEventListener("change", displayVehicles);
+});
+document.getElementById("condition")?.addEventListener("change", () => {
+  populateYears();
+  displayVehicles();
 });
 
 populateSaleVehicleChoices();
