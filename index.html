@@ -1,67 +1,149 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoChinaDZ | Véhicules & importation depuis la Chine</title>
-  <meta name="description" content="AutoChinaDZ - Catalogue automobile, importation de véhicules depuis la Chine vers l'Algérie, photos, vidéos et contact direct.">
-  <style>
-    :root{--red:#e21d2f;--dark:#090909;--soft:#f5f6f8;--line:#e5e7eb;--text:#171717;--muted:#6b7280}
-    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;background:var(--soft);color:var(--text);line-height:1.55}a{text-decoration:none;color:inherit}button,input,select{font:inherit}
-    header{position:sticky;top:0;z-index:100;background:rgba(9,9,9,.97);border-bottom:1px solid #242424}.nav{max-width:1200px;margin:auto;height:68px;padding:0 18px;display:flex;align-items:center;gap:20px}.logo{font-weight:900;font-size:22px;color:#fff;white-space:nowrap}.logo span{color:var(--red)}.navlinks{margin-left:auto;display:flex;gap:24px;color:#ddd;font-size:14px}.navlinks a:hover{color:#fff}.navcta{background:var(--red);color:#fff;padding:10px 14px;border-radius:8px;font-weight:800}.menu-btn{display:none;margin-left:auto;background:none;border:0;color:#fff;font-size:24px}
-    .hero{background:radial-gradient(circle at 83% 60%,#363636 0,#171717 30%,#090909 65%);color:#fff;padding:58px 18px 76px}.hero-inner{max-width:1200px;margin:auto}.eyebrow{display:inline-flex;padding:6px 10px;border:1px solid #7c222c;border-radius:999px;color:#ff7280;font-size:12px;font-weight:900;letter-spacing:.08em}.hero h1{max-width:760px;margin:18px 0 15px;font-size:clamp(42px,7vw,72px);line-height:1.02;letter-spacing:-2px}.hero h1 span{color:var(--red)}.hero p{max-width:640px;color:#c9c9c9;font-size:17px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:8px;padding:12px 16px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}.btn-red{background:var(--red);color:#fff}.btn-dark{background:#1c1c1c;color:#fff;border:1px solid #3a3a3a}.btn-light{background:#fff;color:#111;border:1px solid var(--line)}
-    .search-wrap{max-width:1200px;margin:-38px auto 0;padding:0 18px;position:relative;z-index:5}.search-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 14px 36px rgba(0,0,0,.12)}.search-top{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}.search-top h2{font-size:23px}.search-top p{color:var(--muted);font-size:13px}.filters{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:9px}.filters input,.filters select{width:100%;height:44px;border:1px solid #d7d9de;border-radius:9px;background:#fff;padding:0 11px;outline:none}.filters input:focus,.filters select:focus{border-color:var(--red)}.filter-actions{display:flex;gap:8px;margin-top:10px}.results-count{margin-top:11px;color:var(--muted);font-size:13px;font-weight:700}
-    section{padding:58px 18px}.container{max-width:1200px;margin:auto}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:24px}.section-head h2{font-size:32px}.section-head p{color:var(--muted);max-width:600px}.brands{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.brand{min-height:68px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;cursor:pointer;transition:.18s}.brand:hover{transform:translateY(-2px);border-color:#b7b7b7;box-shadow:0 6px 18px rgba(0,0,0,.07)}.brand.active{border-color:var(--red);box-shadow:0 0 0 2px rgba(226,29,47,.12);color:var(--red)}
-    .vehicles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.vehicle{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.04)}.vehicle-media{aspect-ratio:16/10;background:#e8eaed;display:flex;align-items:center;justify-content:center;color:#777;overflow:hidden}.vehicle-media img{width:100%;height:100%;object-fit:cover}.vehicle-body{padding:16px}.vehicle-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}.pill{font-size:11px;padding:4px 7px;border-radius:999px;background:#f0f1f3;color:#555}.vehicle h3{font-size:20px;margin-bottom:5px}.vehicle-desc{color:var(--muted);font-size:13px;min-height:20px}.vehicle-bottom{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.price{font-size:17px;font-weight:900;color:var(--red)}.more-wrap{text-align:center;margin-top:24px}
-    .services{background:#0b0b0b;color:#fff}.services .section-head p{color:#aaa}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service{background:#151515;border:1px solid #292929;border-radius:13px;padding:22px}.service b{display:block;font-size:18px;margin:9px 0}.service p{color:#aaa;font-size:14px}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.contact-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}.contact-card h3{margin-bottom:7px}.contact-number{font-size:22px;font-weight:900;margin:7px 0}.contact-note{color:var(--muted);font-size:13px}.contact-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
-    footer{background:#090909;color:#aaa;text-align:center;padding:28px 18px;font-size:13px}footer strong{color:#fff}
-    .modal[hidden]{display:none}.modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.78);padding:18px;overflow:auto}.dialog{max-width:980px;margin:20px auto;background:#fff;border-radius:16px;overflow:hidden;position:relative}.close{position:absolute;right:12px;top:12px;z-index:2;width:38px;height:38px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18);font-size:22px;cursor:pointer}.detail{padding:22px}.detail h2{font-size:30px;padding-right:48px}.detail-sub{color:var(--muted);margin:4px 0 16px}.gallery-main{aspect-ratio:16/9;background:#eee;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}.gallery-main img{width:100%;height:100%;object-fit:cover}.thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:9px;padding-bottom:4px}.thumb{flex:0 0 84px;aspect-ratio:4/3;border:2px solid transparent;border-radius:8px;overflow:hidden;padding:0;background:#eee}.thumb.active{border-color:var(--red)}.thumb img{width:100%;height:100%;object-fit:cover}.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0}.spec{background:#f6f7f8;border:1px solid #ececef;border-radius:9px;padding:11px}.spec b{display:block;color:#777;font-size:11px;text-transform:uppercase;margin-bottom:3px}.video-wrap{margin-top:18px}.video-wrap iframe,.video-wrap video{width:100%;min-height:360px;border:0;border-radius:12px;background:#111}.detail-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-    @media(max-width:900px){.navlinks{display:none}.menu-btn{display:block}.navcta{display:none}.filters{grid-template-columns:1fr 1fr}.brands{grid-template-columns:repeat(4,1fr)}.vehicles{grid-template-columns:repeat(2,1fr)}.service-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.specs{grid-template-columns:1fr 1fr}}
-    @media(max-width:600px){.nav{height:60px}.hero{padding:42px 16px 62px}.hero h1{font-size:43px}.hero p{font-size:15px}.search-wrap{margin-top:-24px;padding:0 10px}.search-card{padding:14px;border-radius:14px}.search-top{display:block}.search-top h2{font-size:20px}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}.filter-actions .btn{flex:1}.brands{grid-template-columns:repeat(3,1fr)}.brand{min-height:56px;font-size:12px}.vehicles{grid-template-columns:1fr}.vehicle-media{aspect-ratio:16/9}section{padding:44px 14px}.section-head{display:block;margin-bottom:18px}.section-head h2{font-size:27px}.section-head p{margin-top:5px;font-size:13px}.specs{grid-template-columns:1fr}.detail{padding:15px}.detail h2{font-size:24px}.video-wrap iframe,.video-wrap video{min-height:220px}.contact-number{font-size:20px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AutoChinaDZ | Véhicules & importation depuis la Chine</title>
+<meta name="description" content="AutoChinaDZ - Catalogue automobile, importation de véhicules depuis la Chine vers l'Algérie.">
+<style>
+:root{--red:#e21d2f;--dark:#090909;--soft:#f5f6f8;--line:#e5e7eb;--text:#171717;--muted:#6b7280}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--soft);color:var(--text);line-height:1.55;overflow-x:hidden}a{text-decoration:none;color:inherit}button,input,select{font:inherit}
+header{position:sticky;top:0;z-index:100;background:#090909;border-bottom:1px solid #242424}.nav{max-width:1200px;margin:auto;height:66px;padding:0 16px;display:flex;align-items:center;gap:18px}.logo{font-weight:900;font-size:22px;color:#fff;white-space:nowrap}.logo span{color:var(--red)}.navlinks{margin-left:auto;display:flex;gap:22px;color:#ddd;font-size:14px}.navcta{background:var(--red);color:#fff;padding:10px 14px;border-radius:8px;font-weight:800}.menu-btn{display:none;margin-left:auto;background:none;border:0;color:#fff;font-size:25px}
+.hero{background:radial-gradient(circle at 82% 60%,#363636 0,#171717 30%,#090909 65%);color:#fff;padding:54px 18px 74px}.hero-inner{max-width:1200px;margin:auto}.eyebrow{display:inline-flex;padding:6px 10px;border:1px solid #7c222c;border-radius:999px;color:#ff7280;font-size:12px;font-weight:900}.hero h1{max-width:760px;margin:16px 0 14px;font-size:clamp(42px,7vw,72px);line-height:1.02;letter-spacing:-2px}.hero h1 span{color:var(--red)}.hero p{max-width:640px;color:#c9c9c9;font-size:17px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{border:0;border-radius:8px;padding:12px 16px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}.btn-red{background:var(--red);color:#fff}.btn-dark{background:#1c1c1c;color:#fff;border:1px solid #3a3a3a}.btn-light{background:#fff;color:#111;border:1px solid var(--line)}
+.search-wrap{max-width:1200px;margin:-36px auto 0;padding:0 14px;position:relative;z-index:5}.search-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 14px 36px rgba(0,0,0,.12)}.search-top h2{font-size:23px;margin:0}.search-top p{color:var(--muted);font-size:13px;margin:4px 0 14px}.filters{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:9px}.filters input,.filters select{width:100%;min-width:0;height:44px;border:1px solid #d7d9de;border-radius:9px;background:#fff;padding:0 11px;outline:none}.filters input:focus,.filters select:focus{border-color:var(--red)}.filter-actions{display:flex;gap:8px;margin-top:10px}.results-count{margin-top:11px;color:var(--muted);font-size:13px;font-weight:700}.loading-error{color:#b00020}
+section{padding:52px 16px}.container{max-width:1200px;margin:auto}.section-head{margin-bottom:22px}.section-head h2{font-size:32px;margin:0}.section-head p{color:var(--muted);margin:5px 0 0}.brands{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.brand{min-height:64px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-weight:800;cursor:pointer}.brand.active{border-color:var(--red);box-shadow:0 0 0 2px rgba(226,29,47,.12);color:var(--red)}
+.vehicles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.vehicle{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.vehicle-media{aspect-ratio:16/10;background:#e8eaed;display:flex;align-items:center;justify-content:center;color:#777;font-size:38px;overflow:hidden}.vehicle-media img{width:100%;height:100%;object-fit:cover}.vehicle-body{padding:16px}.vehicle-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}.pill{font-size:11px;padding:4px 7px;border-radius:999px;background:#f0f1f3;color:#555}.vehicle h3{font-size:20px;margin:0 0 5px}.vehicle-desc{color:var(--muted);font-size:13px;min-height:20px}.vehicle-bottom{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.price{font-size:17px;font-weight:900;color:var(--red)}.more-wrap{text-align:center;margin-top:24px}
+.services{background:#0b0b0b;color:#fff}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service{background:#151515;border:1px solid #292929;border-radius:13px;padding:22px}.service b{display:block;font-size:18px;margin:9px 0}.service p{color:#aaa;font-size:14px}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.contact-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}.contact-number{font-size:22px;font-weight:900;margin:7px 0}.contact-note{color:var(--muted);font-size:13px}.contact-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+footer{background:#090909;color:#aaa;text-align:center;padding:28px 18px;font-size:13px}footer strong{color:#fff}
+.modal[hidden]{display:none}.modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.78);padding:18px;overflow:auto}.dialog{max-width:980px;margin:20px auto;background:#fff;border-radius:16px;position:relative}.close{position:absolute;right:12px;top:12px;z-index:2;width:38px;height:38px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18);font-size:22px}.detail{padding:22px}.detail h2{font-size:30px;padding-right:48px}.detail-sub{color:var(--muted);margin:4px 0 16px}.gallery-main{aspect-ratio:16/9;background:#eee;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}.gallery-main img{width:100%;height:100%;object-fit:cover}.thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:9px}.thumb{flex:0 0 84px;aspect-ratio:4/3;border:2px solid transparent;border-radius:8px;overflow:hidden;padding:0;background:#eee}.thumb.active{border-color:var(--red)}.thumb img{width:100%;height:100%;object-fit:cover}.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0}.spec{background:#f6f7f8;border:1px solid #ececef;border-radius:9px;padding:11px}.spec b{display:block;color:#777;font-size:11px;text-transform:uppercase}.detail-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+@media(max-width:900px){.navlinks{display:none}.menu-btn{display:block}.navcta{display:none}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}.brands{grid-template-columns:repeat(4,1fr)}.vehicles{grid-template-columns:repeat(2,1fr)}.service-grid,.contact-grid{grid-template-columns:1fr}.specs{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.nav{height:60px}.hero{padding:40px 16px 60px}.hero h1{font-size:42px}.hero p{font-size:15px}.search-wrap{margin-top:-22px;padding:0 10px}.search-card{padding:14px;border-radius:14px}.filters{grid-template-columns:1fr 1fr}.filter-actions .btn{flex:1}.brands{grid-template-columns:repeat(3,1fr)}.brand{min-height:56px;font-size:12px}.vehicles{grid-template-columns:1fr}section{padding:42px 14px}.section-head h2{font-size:28px}.specs{grid-template-columns:1fr}.detail{padding:15px}}
+</style>
 </head>
 <body>
-<header><nav class="nav"><a href="#accueil" class="logo">AUTO <span>CHINA</span> DZ</a><div class="navlinks"><a href="#accueil">Accueil</a><a href="#marques">Marques</a><a href="#vehicules">Véhicules</a><a href="#services">Services</a><a href="#contact">Contact</a></div><a class="navcta" href="https://wa.me/213770230248" target="_blank" rel="noopener">WhatsApp</a><button class="menu-btn" aria-label="Menu" onclick="document.getElementById('vehicules').scrollIntoView({behavior:'smooth'})">☰</button></nav></header>
-
+<header><nav class="nav"><a href="#accueil" class="logo">AUTO <span>CHINA</span> DZ</a><div class="navlinks"><a href="#accueil">Accueil</a><a href="#marques">Marques</a><a href="#vehicules">Véhicules</a><a href="#services">Services</a><a href="#contact">Contact</a></div><a class="navcta" href="https://wa.me/213770230248" target="_blank" rel="noopener">WhatsApp</a><button class="menu-btn" aria-label="Voir les véhicules" onclick="document.getElementById('vehicules').scrollIntoView({behavior:'smooth'})">☰</button></nav></header>
 <main id="accueil">
-  <section class="hero"><div class="hero-inner"><span class="eyebrow">AUTOCHINADZ · ALGÉRIE</span><h1>Votre voiture.<br><span>Notre expertise.</span></h1><p>Découvrez notre catalogue de véhicules et nos solutions d'importation automobile depuis la Chine vers l'Algérie.</p><div class="hero-actions"><a href="#vehicules" class="btn btn-red">Voir les véhicules</a><a href="#contact" class="btn btn-dark">Nous contacter</a></div></div></section>
-
-  <div class="search-wrap"><div class="search-card"><div class="search-top"><div><h2>Rechercher un véhicule</h2><p>Marque, modèle, année, carrosserie ou carburant.</p></div></div><div class="filters"><input id="q" type="search" placeholder="Marque ou modèle..."><select id="brand"><option value="">Toutes les marques</option></select><select id="model"><option value="">Tous les modèles</option></select><select id="year"><option value="">Toutes les années</option></select><select id="type"><option value="">Tous les types</option></select></div><div class="filter-actions"><button class="btn btn-red" onclick="applyFilters()">Rechercher</button><button class="btn btn-light" onclick="resetFilters()">Réinitialiser</button></div><div id="count" class="results-count">Chargement du catalogue…</div></div></div>
-
-  <section id="marques"><div class="container"><div class="section-head"><div><h2>Nos marques</h2><p>Choisissez une marque pour afficher immédiatement les modèles disponibles.</p></div></div><div id="brands" class="brands"></div></div></section>
-
-  <section id="vehicules"><div class="container"><div class="section-head"><div><h2>Véhicules disponibles</h2><p>Catalogue connecté directement à la base AutoChinaDZ.</p></div></div><div id="vehicles" class="vehicles"></div><div class="more-wrap"><button id="more" class="btn btn-dark" onclick="showMore()" hidden>Voir plus</button></div></div></section>
-
-  <section id="services" class="services"><div class="container"><div class="section-head"><div><h2>Nos services</h2><p>Un accompagnement simple pour votre projet automobile.</p></div></div><div class="service-grid"><article class="service"><span>🚗</span><b>Vente de véhicules</b><p>Consultez le catalogue, les caractéristiques, les photos et les disponibilités.</p></article><article class="service"><span>🇨🇳</span><b>Importation depuis la Chine</b><p>Recherche et accompagnement pour votre projet d'importation vers l'Algérie.</p></article><article class="service"><span>🚢</span><b>Transport & logistique</b><p>Informations et suivi des solutions de transport adaptées à votre véhicule.</p></article></div></div></section>
-
-  <section id="contact"><div class="container"><div class="section-head"><div><h2>Contact AutoChinaDZ</h2><p>Contact direct en Algérie et en Chine.</p></div></div><div class="contact-grid"><article class="contact-card"><h3>🇩🇿 Algérie</h3><div class="contact-number">+213 770 230 248</div><div class="contact-note">Téléphone / WhatsApp</div><div class="contact-actions"><a class="btn btn-red" href="https://wa.me/213770230248" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-light" href="tel:+213770230248">Appeler</a></div></article><article class="contact-card"><h3>🇨🇳 Chine</h3><div class="contact-number">+86 190 9875 7627</div><div class="contact-note">Téléphone</div><div class="contact-actions"><a class="btn btn-dark" href="tel:+8619098757627">Appeler</a></div></article></div></div></section>
+<section class="hero"><div class="hero-inner"><span class="eyebrow">AUTOCHINADZ · ALGÉRIE</span><h1>Votre voiture.<br><span>Notre expertise.</span></h1><p>Découvrez notre catalogue de véhicules et nos solutions d'importation automobile depuis la Chine vers l'Algérie.</p><div class="hero-actions"><a href="#vehicules" class="btn btn-red">Voir les véhicules</a><a href="#contact" class="btn btn-dark">Nous contacter</a></div></div></section>
+<div class="search-wrap"><div class="search-card"><div class="search-top"><h2>Rechercher un véhicule</h2><p>Choisissez une marque puis un modèle.</p></div><div class="filters"><input id="q" type="search" placeholder="Marque ou modèle..."><select id="brand"><option value="">Toutes les marques</option></select><select id="model"><option value="">Tous les modèles</option></select><select id="year"><option value="">Toutes les années</option></select><select id="type"><option value="">Tous les types</option></select></div><div class="filter-actions"><button class="btn btn-red" id="searchBtn">Rechercher</button><button class="btn btn-light" id="resetBtn">Réinitialiser</button></div><div id="count" class="results-count">Chargement du catalogue…</div></div></div>
+<section id="marques"><div class="container"><div class="section-head"><h2>Nos marques</h2><p>Choisissez une marque pour afficher ses modèles.</p></div><div id="brands" class="brands"></div></div></section>
+<section id="vehicules"><div class="container"><div class="section-head"><h2>Véhicules disponibles</h2><p>Catalogue AutoChinaDZ connecté à la base de données.</p></div><div id="vehicles" class="vehicles"></div><div class="more-wrap"><button id="more" class="btn btn-dark" hidden>Voir plus</button></div></div></section>
+<section id="services" class="services"><div class="container"><div class="section-head"><h2>Nos services</h2></div><div class="service-grid"><article class="service"><span>🚗</span><b>Vente de véhicules</b><p>Photos, caractéristiques et disponibilités.</p></article><article class="service"><span>🇨🇳</span><b>Importation depuis la Chine</b><p>Accompagnement de votre projet vers l'Algérie.</p></article><article class="service"><span>🚢</span><b>Transport & logistique</b><p>Informations et suivi du transport.</p></article></div></div></section>
+<section id="contact"><div class="container"><div class="section-head"><h2>Contact AutoChinaDZ</h2></div><div class="contact-grid"><article class="contact-card"><h3>🇩🇿 Algérie</h3><div class="contact-number">+213 770 230 248</div><div class="contact-note">Téléphone / WhatsApp</div><div class="contact-actions"><a class="btn btn-red" href="https://wa.me/213770230248" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-light" href="tel:+213770230248">Appeler</a></div></article><article class="contact-card"><h3>🇨🇳 Chine</h3><div class="contact-number">+86 190 9875 7627</div><div class="contact-note">Téléphone</div><div class="contact-actions"><a class="btn btn-dark" href="tel:+8619098757627">Appeler</a></div></article></div></div></section>
 </main>
 <footer>© 2026 <strong>AutoChinaDZ</strong> — Véhicules & solutions automobiles depuis la Chine.</footer>
-
-<div id="modal" class="modal" hidden><div class="dialog"><button class="close" onclick="closeDetail()">×</button><div id="detail" class="detail"></div></div></div>
-
+<div id="modal" class="modal" hidden><div class="dialog"><button class="close" id="closeModal">×</button><div id="detail" class="detail"></div></div></div>
 <script>
-const SUPABASE_URL='https://dddoifppwastcsieaamc.supabase.co';
-const SUPABASE_KEY='sb_publishable_aQCzbezOTkTn6KEnAwNrGA_ssrxd_6d';
-let allVehicles=[],allPhotos=[],allVideos=[],filtered=[],visible=24,currentBrand='';
-const $=id=>document.getElementById(id);
-const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-async function api(path){const r=await fetch(SUPABASE_URL+'/rest/v1/'+path,{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});if(!r.ok)throw new Error(await r.text());return r.json()}
-function photoFor(id){const p=allPhotos.filter(x=>String(x.vehicle_id)===String(id)).sort((a,b)=>(a.sort_order??0)-(b.sort_order??0))[0];return p?.photo_url||''}
-function unique(values){return [...new Set(values.filter(v=>v!==null&&v!==undefined&&String(v).trim()!==''))].sort((a,b)=>String(a).localeCompare(String(b),'fr',{numeric:true}))}
-function fillSelect(id,values,label){$(id).innerHTML='<option value="">'+label+'</option>'+values.map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('')}
-function populate(){const brands=unique(allVehicles.map(v=>v.brand_fr));fillSelect('brand',brands,'Toutes les marques');fillSelect('year',unique(allVehicles.map(v=>v.year)).sort((a,b)=>Number(b)-Number(a)),'Toutes les années');fillSelect('type',unique(allVehicles.map(v=>v.type)),'Tous les types');$('brands').innerHTML=brands.map(b=>'<button class="brand" data-brand="'+esc(b)+'" onclick="chooseBrand(this.dataset.brand)">'+esc(b)+'</button>').join('');updateModels()}
-function updateModels(){const brand=$('brand').value;const list=unique(allVehicles.filter(v=>!brand||v.brand_fr===brand).map(v=>v.model_fr));fillSelect('model',list,'Tous les modèles')}
-function chooseBrand(brand){$('brand').value=brand;currentBrand=brand;updateModels();document.querySelectorAll('.brand').forEach(b=>b.classList.toggle('active',b.dataset.brand===brand));applyFilters();$('vehicules').scrollIntoView({behavior:'smooth'})}
-function applyFilters(){const q=$('q').value.trim().toLowerCase(),brand=$('brand').value,model=$('model').value,year=$('year').value,type=$('type').value;filtered=allVehicles.filter(v=>{const name=((v.brand_fr||'')+' '+(v.model_fr||'')).toLowerCase();return(!q||name.includes(q))&&(!brand||v.brand_fr===brand)&&(!model||v.model_fr===model)&&(!year||String(v.year)===String(year))&&(!type||v.type===type)});visible=24;render()}
-function resetFilters(){$('q').value='';$('brand').value='';$('model').value='';$('year').value='';$('type').value='';currentBrand='';document.querySelectorAll('.brand').forEach(b=>b.classList.remove('active'));updateModels();applyFilters()}
-function render(){const list=filtered.slice(0,visible);$('count').textContent=filtered.length+' véhicule(s) trouvé(s)';$('vehicles').innerHTML=list.length?list.map(v=>{const img=photoFor(v.id),meta=[v.year,v.type,v.fuel_fr,v.gearbox_fr].filter(Boolean);return '<article class="vehicle"><div class="vehicle-media">'+(img?'<img src="'+esc(img)+'" alt="'+esc((v.brand_fr||'')+' '+(v.model_fr||''))+'" loading="lazy">':'🚗')+'</div><div class="vehicle-body"><div class="vehicle-meta">'+meta.slice(0,3).map(x=>'<span class="pill">'+esc(x)+'</span>').join('')+'</div><h3>'+esc(v.brand_fr)+' '+esc(v.model_fr)+'</h3><div class="vehicle-desc">'+esc(v.description_fr||'Véhicule disponible')+'</div><div class="vehicle-bottom"><span class="price">'+esc(v.price||'Sur demande')+'</span><button class="btn btn-dark" onclick="openDetail('+Number(v.id)+')">Voir la fiche</button></div></div></article>'}).join(''):'<p>Aucun véhicule trouvé.</p>';$('more').hidden=visible>=filtered.length}
-function showMore(){visible+=24;render()}
-async function openDetail(id){const v=allVehicles.find(x=>String(x.id)===String(id));if(!v)return;const photos=allPhotos.filter(p=>String(p.vehicle_id)===String(id)).sort((a,b)=>(a.sort_order??0)-(b.sort_order??0));const first=photos[0]?.photo_url||'';const specs=[['Année',v.year],['Type',v.type],['Moteur',v.engine_fr],['Carburant',v.fuel_fr],['Puissance',v.power],['Couple',v.torque],['Boîte',v.gearbox_fr],['Places',v.seats],['Prix',v.price]].filter(x=>x[1]);const thumbs=photos.map((p,i)=>'<button class="thumb '+(i===0?'active':'')+'" onclick="setMainPhoto(this,\''+esc(p.photo_url)+'\')"><img src="'+esc(p.photo_url)+'" alt=""></button>').join('');const vids=allVideos.filter(x=>String(x.vehicle_id)===String(id));let video='';if(vids[0]){const url=vids[0].video_url||'';if(/youtube\.com|youtu\.be/.test(url)){const m=url.match(/(?:v=|youtu\.be\/)([^&?/]+)/);if(m)video='<div class="video-wrap"><h3>Vidéo</h3><iframe src="https://www.youtube.com/embed/'+esc(m[1])+'" allowfullscreen></iframe></div>'}else if(url)video='<div class="video-wrap"><h3>Vidéo</h3><video controls src="'+esc(url)+'"></video></div>'}$('detail').innerHTML='<h2>'+esc(v.brand_fr)+' '+esc(v.model_fr)+'</h2><div class="detail-sub">'+esc(v.description_fr||'Fiche véhicule AutoChinaDZ')+'</div><div class="gallery-main">'+(first?'<img id="mainPhoto" src="'+esc(first)+'" alt="">':'Photo non disponible')+'</div><div class="thumbs">'+thumbs+'</div><div class="specs">'+specs.map(x=>'<div class="spec"><b>'+esc(x[0])+'</b>'+esc(x[1])+'</div>').join('')+'</div>'+video+'<div class="detail-actions"><a class="btn btn-red" target="_blank" rel="noopener" href="https://wa.me/213770230248?text='+encodeURIComponent('Bonjour AutoChinaDZ, je souhaite des informations sur '+(v.brand_fr||'')+' '+(v.model_fr||''))+'">WhatsApp</a><a class="btn btn-dark" target="_blank" rel="noopener" href="https://wa.me/213770230248?text='+encodeURIComponent('Bonjour AutoChinaDZ, je souhaite passer une commande pour '+(v.brand_fr||'')+' '+(v.model_fr||''))+'">Passer une commande</a></div>';$('modal').hidden=false;document.body.style.overflow='hidden'}else{$('detail').innerHTML='<h2>'+esc(v.brand_fr)+' '+esc(v.model_fr)+'</h2><div class="detail-sub">'+esc(v.description_fr||'Fiche véhicule AutoChinaDZ')+'</div><div class="gallery-main">'+(first?'<img id="mainPhoto" src="'+esc(first)+'" alt="">':'Photo non disponible')+'</div><div class="thumbs">'+thumbs+'</div><div class="specs">'+specs.map(x=>'<div class="spec"><b>'+esc(x[0])+'</b>'+esc(x[1])+'</div>').join('')+'</div><div class="detail-actions"><a class="btn btn-red" target="_blank" rel="noopener" href="https://wa.me/213770230248?text='+encodeURIComponent('Bonjour AutoChinaDZ, je souhaite des informations sur '+(v.brand_fr||'')+' '+(v.model_fr||''))+'">WhatsApp</a><a class="btn btn-dark" target="_blank" rel="noopener" href="https://wa.me/213770230248?text='+encodeURIComponent('Bonjour AutoChinaDZ, je souhaite passer une commande pour '+(v.brand_fr||'')+' '+(v.model_fr||''))+'">Passer une commande</a></div>';$('modal').hidden=false;document.body.style.overflow='hidden'}}
-function setMainPhoto(btn,url){const img=$('mainPhoto');if(img)img.src=url;document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
-function closeDetail(){$('modal').hidden=true;document.body.style.overflow=''}
-$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeDetail()});$('q').addEventListener('input',applyFilters);$('brand').addEventListener('change',()=>{currentBrand=$('brand').value;updateModels();applyFilters();document.querySelectorAll('.brand').forEach(b=>b.classList.toggle('active',b.dataset.brand===currentBrand))});$('model').addEventListener('change',applyFilters);$('year').addEventListener('change',applyFilters);$('type').addEventListener('change',applyFilters);
-(async()=>{try{const [vehicles,photos,videos]=await Promise.all([api('vehicles?select=*&available=eq.true&order=created_at.desc'),api('vehicle_photos?select=*'),api('vehicle_videos?select=*').catch(()=>[])]);allVehicles=vehicles;allPhotos=photos;allVideos=videos;populate();filtered=[...allVehicles];render()}catch(e){console.error(e);$('count').textContent='Impossible de charger le catalogue.';$('vehicles').innerHTML='<p>Le catalogue ne peut pas être chargé pour le moment.</p>'}})();
+(function(){
+"use strict";
+var SUPABASE_URL="https://dddoifppwastcsieaamc.supabase.co";
+var SUPABASE_KEY="sb_publishable_aQCzbezOTkTn6KEnAwNrGA_ssrxd_6d";
+var allVehicles=[], allPhotos=[], filtered=[], visible=24;
+function byId(id){return document.getElementById(id)}
+function text(v){return v===null||v===undefined?"":String(v)}
+function esc(v){return text(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]})}
+async function api(path){
+  var response=await fetch(SUPABASE_URL+"/rest/v1/"+path,{headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}});
+  if(!response.ok){throw new Error("API "+response.status+" "+await response.text())}
+  return response.json();
+}
+function unique(values){
+  var seen={}; var out=[];
+  values.forEach(function(v){var s=text(v).trim(); if(s && !seen[s]){seen[s]=true;out.push(s)}});
+  return out.sort(function(a,b){return a.localeCompare(b,"fr",{numeric:true})});
+}
+function setOptions(id,values,label){
+  var sel=byId(id); sel.innerHTML="";
+  var first=document.createElement("option"); first.value=""; first.textContent=label; sel.appendChild(first);
+  values.forEach(function(v){var o=document.createElement("option");o.value=v;o.textContent=v;sel.appendChild(o)});
+}
+function populate(){
+  var brands=unique(allVehicles.map(function(v){return v.brand_fr}));
+  setOptions("brand",brands,"Toutes les marques");
+  var years=unique(allVehicles.map(function(v){return v.year})).sort(function(a,b){return Number(b)-Number(a)});
+  setOptions("year",years,"Toutes les années");
+  setOptions("type",unique(allVehicles.map(function(v){return v.type_fr||v.type})),"Tous les types");
+  byId("brands").innerHTML=brands.map(function(b){return '<button class="brand" data-brand="'+esc(b)+'">'+esc(b)+"</button>"}).join("");
+  Array.prototype.forEach.call(document.querySelectorAll(".brand"),function(btn){
+    btn.addEventListener("click",function(){byId("brand").value=btn.getAttribute("data-brand");updateModels();applyFilters();syncBrandButtons();document.getElementById("vehicules").scrollIntoView({behavior:"smooth"})});
+  });
+  updateModels();
+}
+function updateModels(){
+  var brand=byId("brand").value;
+  var models=unique(allVehicles.filter(function(v){return !brand||text(v.brand_fr)===brand}).map(function(v){return v.model_fr}));
+  setOptions("model",models,"Tous les modèles");
+}
+function syncBrandButtons(){
+  var brand=byId("brand").value;
+  Array.prototype.forEach.call(document.querySelectorAll(".brand"),function(btn){btn.classList.toggle("active",btn.getAttribute("data-brand")===brand)});
+}
+function applyFilters(){
+  var q=byId("q").value.trim().toLowerCase(),brand=byId("brand").value,model=byId("model").value,year=byId("year").value,type=byId("type").value;
+  filtered=allVehicles.filter(function(v){
+    var name=(text(v.brand_fr)+" "+text(v.model_fr)).toLowerCase();
+    var vehicleType=text(v.type_fr||v.type);
+    return (!q||name.indexOf(q)!==-1)&&(!brand||text(v.brand_fr)===brand)&&(!model||text(v.model_fr)===model)&&(!year||text(v.year)===year)&&(!type||vehicleType===type);
+  });
+  visible=24; render();
+}
+function resetFilters(){
+  ["q","brand","model","year","type"].forEach(function(id){byId(id).value=""});
+  updateModels();syncBrandButtons();applyFilters();
+}
+function firstPhoto(vehicleId){
+  var arr=allPhotos.filter(function(p){return text(p.vehicle_id)===text(vehicleId)});
+  arr.sort(function(a,b){return Number(a.sort_order||0)-Number(b.sort_order||0)});
+  return arr.length?text(arr[0].photo_url):"";
+}
+function render(){
+  byId("count").classList.remove("loading-error");
+  byId("count").textContent=filtered.length+" véhicule(s) trouvé(s)";
+  var list=filtered.slice(0,visible);
+  if(!list.length){byId("vehicles").innerHTML="<p>Aucun véhicule trouvé.</p>";byId("more").hidden=true;return}
+  byId("vehicles").innerHTML=list.map(function(v){
+    var img=firstPhoto(v.id);
+    var meta=[v.year,v.type_fr||v.type,v.fuel_fr].filter(Boolean);
+    return '<article class="vehicle"><div class="vehicle-media">'+(img?'<img src="'+esc(img)+'" alt="'+esc(text(v.brand_fr)+" "+text(v.model_fr))+'" loading="lazy">':"🚗")+'</div><div class="vehicle-body"><div class="vehicle-meta">'+meta.map(function(m){return '<span class="pill">'+esc(m)+"</span>"}).join("")+'</div><h3>'+esc(v.brand_fr)+" "+esc(v.model_fr)+'</h3><div class="vehicle-desc">'+esc(v.description_fr||"Véhicule disponible")+'</div><div class="vehicle-bottom"><span class="price">'+esc(v.price||"Sur demande")+'</span><button class="btn btn-dark detail-btn" data-id="'+esc(v.id)+'">Voir la fiche</button></div></div></article>';
+  }).join("");
+  Array.prototype.forEach.call(document.querySelectorAll(".detail-btn"),function(btn){btn.addEventListener("click",function(){openDetail(btn.getAttribute("data-id"))})});
+  byId("more").hidden=visible>=filtered.length;
+}
+function openDetail(id){
+  var v=allVehicles.find(function(x){return text(x.id)===text(id)}); if(!v)return;
+  var photos=allPhotos.filter(function(p){return text(p.vehicle_id)===text(id)}).sort(function(a,b){return Number(a.sort_order||0)-Number(b.sort_order||0)});
+  var first=photos.length?text(photos[0].photo_url):"";
+  var specs=[["Année",v.year],["Type",v.type_fr||v.type],["Moteur",v.engine_fr],["Carburant",v.fuel_fr],["Puissance",v.power],["Boîte",v.gearbox_fr],["Places",v.seats],["Prix",v.price]].filter(function(x){return x[1]});
+  var thumbs=photos.map(function(p,i){return '<button class="thumb '+(i===0?"active":"")+'" data-url="'+esc(p.photo_url)+'"><img src="'+esc(p.photo_url)+'" alt=""></button>'}).join("");
+  byId("detail").innerHTML='<h2>'+esc(v.brand_fr)+" "+esc(v.model_fr)+'</h2><div class="detail-sub">'+esc(v.description_fr||"Fiche véhicule AutoChinaDZ")+'</div><div class="gallery-main">'+(first?'<img id="mainPhoto" src="'+esc(first)+'" alt="">':"Photo non disponible")+'</div><div class="thumbs">'+thumbs+'</div><div class="specs">'+specs.map(function(x){return '<div class="spec"><b>'+esc(x[0])+"</b>"+esc(x[1])+"</div>"}).join("")+'</div><div class="detail-actions"><a class="btn btn-red" target="_blank" rel="noopener" href="https://wa.me/213770230248?text='+encodeURIComponent("Bonjour AutoChinaDZ, je souhaite des informations sur "+text(v.brand_fr)+" "+text(v.model_fr))+'">WhatsApp</a><a class="btn btn-dark" target="_blank" rel="noopener" href="https://wa.me/213770230248?text='+encodeURIComponent("Bonjour AutoChinaDZ, je souhaite passer une commande pour "+text(v.brand_fr)+" "+text(v.model_fr))+'">Passer une commande</a></div>';
+  Array.prototype.forEach.call(document.querySelectorAll(".thumb"),function(btn){btn.addEventListener("click",function(){var img=byId("mainPhoto");if(img)img.src=btn.getAttribute("data-url");Array.prototype.forEach.call(document.querySelectorAll(".thumb"),function(x){x.classList.remove("active")});btn.classList.add("active")})});
+  byId("modal").hidden=false;document.body.style.overflow="hidden";
+}
+function closeModal(){byId("modal").hidden=true;document.body.style.overflow=""}
+byId("closeModal").addEventListener("click",closeModal);
+byId("modal").addEventListener("click",function(e){if(e.target===byId("modal"))closeModal()});
+byId("searchBtn").addEventListener("click",applyFilters);
+byId("resetBtn").addEventListener("click",resetFilters);
+byId("q").addEventListener("input",applyFilters);
+byId("brand").addEventListener("change",function(){updateModels();syncBrandButtons();applyFilters()});
+byId("model").addEventListener("change",applyFilters);
+byId("year").addEventListener("change",applyFilters);
+byId("type").addEventListener("change",applyFilters);
+byId("more").addEventListener("click",function(){visible+=24;render()});
+async function init(){
+  try{
+    allVehicles=await api("vehicles?select=*&available=eq.true&order=brand_fr.asc,model_fr.asc");
+    populate(); filtered=allVehicles.slice(); render();
+    try{allPhotos=await api("vehicle_photos?select=*");render()}catch(photoError){console.warn("Photos non chargées",photoError)}
+  }catch(error){
+    console.error(error);
+    byId("count").classList.add("loading-error");
+    byId("count").textContent="Erreur de chargement du catalogue.";
+    byId("vehicles").innerHTML="<p>Le catalogue ne peut pas être chargé pour le moment.</p>";
+  }
+}
+init();
+})();
 </script>
 </body>
 </html>
